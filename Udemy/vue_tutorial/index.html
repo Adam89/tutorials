@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue JS</title>
+    <meta name="description" content="F1 Countdown Clock">
+    <meta name="author" content="SitePoint">
+    <link rel="stylesheet" href="./css/styles.css?v=1.0">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<style>
+.demo {
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+    display: inline-block;
+    margin: 10px;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue;
+}
+</style>
+
+
+<body>
+
+
+<div id="app">
+    <h1>First Vue JS app</h1>
+    <input type="text" v-on:input="changeTitle">
+    <p>{{title}}</p>
+
+</div>
+
+<div id="appTwo">
+    <h1>Dom Interaction</h1>
+    <h1 v-once>{{titleTwo}}</h1>
+    <p>{{sayHello()}} - <a v-bind:href="link" target="_blank"> KHWS</p> </a>
+    <hr>
+    <p v-html="finshedLink">{{finshedLink}}</p>
+
+</div>
+  <div id="exercise">
+<h1>Assignment 1</h1>
+   <!--1) Fill the <p> below with your Name and Age - using Interpolation    <p>VueJS is pretty cool - {{name}} {{age}}</p>  2) Output your age, multiplied by 3 -->
+    <p>My age multiplied by 3 is {{age * 3}}</p>
+    <!-- 3) Call a function to output a random float between 0 and 1 (Math.random()) -->
+    <p> A random float will appear here {{randomFloat()}}</p>
+    <!-- 4) Search any image on Google and output it here by binding the "src" attribute -->
+    <div>
+        <img v-bind:src="imageLink" style="width:200px;height:200px">
+    </div>
+    <!-- 5) Pre-Populate this input with your name (set the "value" attribute) -->
+    <div>
+        <input type="text" v-bind:value="name">
+    </div>
+</div>
+
+
+ <h1>Listening to events</h1>
+
+<div id="appEvent">
+<button v-on:click="increase(2, $event)">click me</button>
+<p>{{counter}}</p>
+<p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }}
+
+<span v-on:mousemove.stop="">Dead Spot</span>
+</p>
+<input type="text" v-on:keyup.enter="alertMe">
+</div>
+
+
+
+<div id="exercise">
+<h1>Assignment 2</h1>
+    1) Show an alert when the Button gets clicked
+    <div>
+        <button v-on:click="alertMe">Show Alert</button>
+    </div>
+    <!-- 2) Listen to the "keydown" event and store the value in a data property (hint: event.target.value gives you the value) -->
+    <div>
+        <input type="text" v-on:keydown="value = $event.target.value">
+        <p>{{ value }}</p>
+    </div>
+    <!-- 3) Adjust the example from 2) to only fire if the "key down" is the ENTER key -->
+    <div>
+        <input type="text" v-on:keydown.enter="value = $event.target.value">
+        <p>{{ value }}</p>
+    </div>
+</div>
+
+
+ <div id="twoWayBind">
+
+    <h1>First Vue JS app</h1>
+    <input type="text" v-model="name">
+    <p>{{name}}</p>
+
+</div>
+
+
+ <div id="computedChanges">
+<h1>Assignment 3</h1>
+    <h1>First Vue JS app</h1>
+<button v-on:click="counter++">click me</button>
+<button v-on:click="counter--">click me</button>
+<button v-on:click="secondCounter++">Second Counter</button>
+<p>Counter: {{counter}} | {{secondCounter}}</p>
+<p>Result: {{ resultDom() }} | {{ output }}</p>
+
+</div>
+
+<div id="exerciseWatch">
+   <!-- 1) Show a "result" of 'not there yet' as long as "value" is not equal to 37 - you can change "value" with the buttons. Print 'done' once you did it -->
+    <div>
+        <p>Current Value: {{ value }}</p>
+        <button @click="value += 5">Add 5</button>
+        <button @click="value += 1">Add 1</button>
+        <p>{{ result }}</p>
+    </div>
+    <!--2) Watch for changes in the "result" and reset the "value" after 5 seconds (hint: setTimeout(..., 5000) -->
+    <div>
+        <input type="text">
+        <p>{{ value }}</p>
+    </div>
+</div>
+
+ <div id="appCSS">
+<div class="demo" @click="attachRed = !attachRed" :class="divClasses"></div>
+<div class="demo" :class="{red: attachRed}"></div>
+<div class="demo" :class="[color, {red: attachRed} ]"></div>
+<div class="demo" :style="{backgroundColor: color}"></div>
+<hr>
+<input type="text" v-model="color">
+</div>
+
+
+ <div id="appCSSTwo">
+<div class="demo"></div>
+<div class="demo" :style="{backgroundColor: color}"></div>
+<div class="demo" :style="myStyle"></div>
+<div class="demo" :style="[myStyle, {height: width + ' px '}]"></div>
+<hr>
+<input type="text" v-model="color">
+<input type="text" v-model="width">
+<input type="text" v-model="height">
+</div>
+
+
+
+<div id="exercise">
+    <!--1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
+  <div>
+    <button @click="startEffect">Start Effect</button>
+    <div id="effect" v-bind:class="effectClasses"></div>
+  </div>
+    <!--2) Create a couple of CSS classes and attach them via the array syntax -->
+  <div v-bind:class="['float', 'blue', 'text']">I got no class :(</div>
+    <!--3) Let the user enter a class (create some example classes) and attach it -->
+  <div>
+    <input type="text" v-model="userClass">
+    <div v-bind:class="[{visible: true}, userClass]"></div>
+  </div>
+    <!--4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+  <div>
+    <input type="text" v-model="userClass">
+    <input type="text" v-model="isVisible">
+    <div v-bind:class="[{visible: isVisible}, userClass]"></div>
+  </div>
+    <!--5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles. -->
+  <div>
+    <input type="text" v-model="myStyle.backgroundColor">
+    <div v-bind:style="myStyle"></div>
+  </div>
+    <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+  <div>
+    <button v-on:click="startProgress">Start Progress</button>
+    <div v-bind:class="['progress-bar']" v-bind:style="progressBar"></div>
+
+  </div>
+</div>
+
+
+  <!-- dom interaction -->
+<div id="appDom">
+    <p v-if="show">You can see me!</p>
+    <p v-else>Now you see me</p>
+    <template v-if="show">   does not render in dom so can group stuff together
+
+        <h1>Heading</h1>
+        <p>Inside a template</p>
+    </template>
+    <p v-show="show">Do you also see me?</p>
+    <button @click="show = !show">Switch</button>
+</div>
+
+
+
+<div id="appList">
+    <ul>
+        <li v-for="(ingredient, index) in ingredients" v-bind:key="ingredient">{{ingredient}} ({{index}})</li>
+    </ul>
+            <button @click="ingredients.push('spices')">Add New</button>
+    <hr>
+    <template v-for="(ingredient, index) in ingredients">
+        <h1>{{ingredient}}</h1>
+        <p>({{index}})</p>
+    </template>
+    <hr>
+    <ul >
+        <li v-for="person in persons">
+            <div v-for="(value, key, index) in person">{{key}}:  {{value}} : {{index}}</div>
+        </li>
+    </ul>
+    <span v-for="number in 10">{{number}}</span>
+</div>
+
+
+ <div id="exerciseDom">
+ <!--
+1) Hook up the button to toggle the display of the two paragraphs. Use both v-if and v-show and inspect the elements to see the difference -->
+  <div>
+    <button @click="isShown = !isShown">Toggle</button>
+    <p v-if="isShown">You either see me ...</p>
+    <p v-else>...or me</p>
+    <p v-show="isShown">You either see me ...</p>
+    <p v-show="!isShown">...or me</p>
+  </div>
+  <!-- 2) Output an <ul> of array elements of your choice. Also print the index of each element.-->
+  <ul>
+    <li v-for="(element, index) in array">{{ element }} - {{ index }}</li>
+  </ul>
+  <!-- 3) Print all key-value pairs of the following object: {title: 'Lord of the Rings', author: 'J.R.R. Tolkiens', books: '3'}. Also print the index of each item.-->
+  <ul>
+    <li v-for="(value, keyName, index) in myObject">{{ value }} - {{ keyName }} - {{ index }}</li>
+  </ul>
+  <!-- 4) Print the following object (only the values) and also create a nested loop for the array: {name: 'TESTOBJECT', data: [1.67, 1.33, 0.98, 2.21]} (hint: use v-for and v-if to achieve this)-->
+  <ul>
+    <li v-for="value in testData">
+      <template v-if="Array.isArray(value)">   <!-- is type is array grab elements-->
+        <div v-for="element in value">{{ element }}</div>
+      </template>
+      <template v-else> <!-- is type is array grab elements-->
+        {{ value }}
+      </template>
+    </li>
+  </ul>
+</div>
+-->
+
+<div id="appLife">
+
+   <h1>{{title}}</h1>
+   <button v-on:click="title = 'changed'">update title</button>
+   <button v-on:click="destroy">destroy</button>
+</div>
+
+
+</body>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+<script src="./js/script.js"></script>
+
+</html>

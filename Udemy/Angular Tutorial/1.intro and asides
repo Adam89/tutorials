@@ -1,0 +1,13 @@
+We will learn fundamental Javascript principles and how angular JS works
+
+Model view whatever ... is angular
+
+model defines the data such as a variable
+view is the html people see the whatever is the Javascript(controllers) that binds the model and view.
+
+
+1.(HTML ASIDE) Custom html attributes - such as data but in angular these are represented by NG- uses the fact that the dom has that available to make decisions based on the values of the attribute
+
+1.(JAVASCRIPT ASIDE) Global Namespace - encapsulation making sure we don't pollute the global namespace. use namespace to avoid functions and varibales don't interfere or mutate each other.
+
+2. (JAVASCRIPT ASIDE) Dependency injection - Giving a function an object rather than creating inside the function. You pass the function an object.

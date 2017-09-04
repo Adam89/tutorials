@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue JS</title>
+    <meta name="description" content="F1 Countdown Clock">
+    <meta name="author" content="SitePoint">
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="./css/styles.css?v=1.0">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" v-bind:style="{width: playerHealth + '%'} ">
+                {{playerHealth}}
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" v-bind:style="{width: monsterHealth + '%'} ">
+                {{monsterHealth}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls" v-if="!gameIsRunning">
+        <div class="small-12 columns">
+            <button id="start-game" v-on:click="startGame">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls" v-else >
+        <div class="small-12 columns">
+            <button id="attack" v-on:click="attack">ATTACK</button>
+            <button id="special-attack" v-on:click="specialAttack">SPECIAL ATTACK</button>
+            <button id="heal" v-on:click="heal">HEAL</button>
+            <button id="give-up" v-on:click="giveUp" >GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log" v-if="turns.length > 0">
+        <div class="small-12 columns">
+            <ul>
+                <li v-for="turn in turns" v-bind:class="{'player-turn': turn.isPlayer,'monster-turn': !turn.isPlayer }">
+                {{ turn.text }}
+
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+</body>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
+<script src="./js/monsterGame.js"></script>
+
+</html>
