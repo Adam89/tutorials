@@ -5,10 +5,10 @@
 
             <div class="col-xs-12">
 
-				<appQuote v-bind:quote="'A quote sent via props'">
+				<appQuote v-bind:quote="test">
 
 					<h2 slot="titleTest">A quote sent via slots</h2>
-					<h3 slot="titleTest">{{ quoteTitle }}</h3>
+					<h3 slot="titleTestNew">{{ quoteTitle }}</h3>
 					<h2 slot="secondNamedSlot">{{ namedSlotTitle }}</h2>
 
 				</appQuote>
@@ -26,7 +26,8 @@ import Quote from './components/quote.vue';
     	data: function() {
     		return {
     			quoteTitle: 'A quote sent via slots and interpolation',
-    			namedSlotTitle: 'A second specific slot'
+    			namedSlotTitle: 'A second specific slot',
+                test: 'A quote sent via new'
     		}
     	},
         components: {

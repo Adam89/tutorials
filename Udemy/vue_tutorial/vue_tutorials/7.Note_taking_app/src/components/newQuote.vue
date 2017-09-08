@@ -26,7 +26,7 @@
         },
         methods: {
             createNewQuote() { //ES6 STYLE EMIT NEW QUOTE
-                this.$emit('quoteAdded', this.quote); //emit quoteAdded event quote updated all the time
+                this.$emit('quoteAdded', this.quote); //emit quoteAdded event quote updated all the time emitted to parent
                 this.quote = ''; //reset quote after
 
             }

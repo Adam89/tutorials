@@ -2,7 +2,9 @@
 	<div>
 		<div class="title">
 			<slot name="titleTest"></slot>
+
 		</div>
+		<slot name="titleTestNew"></slot>
 		<span><slot name="subTitle">Default placeholder content as no specific data passed</slot></span>
 		<hr>
 		<div>

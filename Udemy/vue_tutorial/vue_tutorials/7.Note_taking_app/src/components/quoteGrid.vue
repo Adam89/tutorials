@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-	<appQuote v-for="quote in quotes"> {{ quote }} </appQuote>
+	<appQuote v-for="(quote, index) in quotes" v-on:click.native="deleteQuote(index)"> {{ quote }} </appQuote>
     </div>
 </template>
 
@@ -14,6 +14,11 @@
         	return {
 
         	}
+        },
+        methods: {
+            deleteQuote(index) { // need to get index from above and pass to app vue
+                this.$emit('quoteDeleted', index)
+            }
         },
         components: {
         	appQuote: Quote
@@ -31,5 +36,8 @@
 loop through each quote to render that single quote for each loop and render the quote content for it
 
 quotes get passed from app.vue at start
+
+
+native tells vue js react to a click on this component if it happens on the native element of this component
 
  -->
