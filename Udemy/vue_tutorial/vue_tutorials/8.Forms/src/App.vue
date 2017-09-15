@@ -80,8 +80,9 @@
                     <label for="priority">Priority</label>
                     <select
                             id="priority"
-                            class="form-control">
-                        <option></option>
+                            class="form-control" v-model="selectedPriority">
+                        <option v-for="priority in priorities" v-bind:selected="priority == 'Low'">{{priority}}</option>
+
                     </select>
                 </div>
             </div>
@@ -111,7 +112,7 @@
                             <li v-for="item in sentMail">{{item}}</li>
                         </ul>
                         <p>Gender: {{gender}}</p>
-                        <p>Priority:</p>
+                        <p>Priority: {{selectedPriority}}</p>
                         <p>Switched:</p>
                     </div>
                 </div>
@@ -131,7 +132,9 @@
                 },
                 message: 'A new text',
                 sentMail: [ ], // bind two inputs to same model which vue js detects auto merges the value into an array
-                gender: 'male'
+                gender: 'male',
+                selectedPriority: 'High',
+                priorities: ['High', 'Medium', 'Low']
 
             }
 
