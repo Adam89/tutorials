@@ -39,4 +39,6 @@ v-model will always override the default value set by bind
 v-model does two things behind scenes binds value of input to property and gives access to @input or @change it then listens to changes which sets userData.email = $event.target.value
 
 so our custom component has to have a prop named value so v-model can pass a value into our component and it has to emit an event called input to allow v-model to react to that
+
+custom input 2 key features takes a prop as a value and emits an input as an event
 */
