@@ -56,3 +56,5 @@ new Vue({
 
 //you can also have multiple modifiers
 
+// you can pass in objects as values too and acess them by using binding.value.WHATEVER YOUR OBJECT KEY IS vue js doesn't care what the value is
+
