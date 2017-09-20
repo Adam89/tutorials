@@ -6,12 +6,20 @@ Vue.directive('highlight', {// add v-highlight to directive
 	bind(el , binding, vnode) { // acess to these arguments
 		// el.style.backgroundColor = 'green';
 		// el.style.backgroundColor = binding.value; // binding refers to the directive on the element value refers to the arg you pass from the template able to set the value from outside via props or other means
+		var delay = 0;
+		if (binding.modifiers['delayed']) {//modifiers is an array object if key exsits if we do then do something modfiers is an object because you are able to chain them it will only currently return true if it is set
+			delay = 3000;
+		}
+		setTimeout(() => {
 
 		if (binding.arg == 'background') {// arg allows us to get the info after the colon : on the directive
 			el.style.backgroundColor = binding.value;
 		} else {
 			el.style.color = binding.value;
 		}
+
+		},delay);
+
 	}
 });
 
@@ -41,3 +49,7 @@ new Vue({
 // unbind: once directive has been removed same args as bind
 
 // you will use bind and update the most often the bind node triggering what the directive triggers when applied to an element
+
+// global directive above shows you how to use arguments modifiers and values such as color
+
+// local directives are only available on one component
