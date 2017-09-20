@@ -53,3 +53,6 @@ new Vue({
 // global directive above shows you how to use arguments modifiers and values such as color
 
 // local directives are only available on one component
+
+//you can also have multiple modifiers
+
