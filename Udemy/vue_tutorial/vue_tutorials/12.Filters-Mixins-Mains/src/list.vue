@@ -33,7 +33,7 @@
 	// 	}
 	mixins: [fruitMixin], // its an array where you specify all the code snippets you want to add to this vue instance or component
 	created() {
-		console.log('inside list created hook'); // mixin first component last this allows you to overwrite stuff in a mixing or destroy stuff mixing can't destroy stuff
+		console.log('inside list created hook'); // mixing first component last this allows you to overwrite stuff in a mixing or destroy stuff mixing can't destroy stuff
 	}
 
 

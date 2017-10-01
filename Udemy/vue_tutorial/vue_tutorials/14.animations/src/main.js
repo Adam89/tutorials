@@ -20,4 +20,8 @@ by adding fade name vue js can sinff out classes where you add transition
 
 .fade-enter only attached for 1 frame at start
 
+.slide-enter allows you to do keyframes
+
+type="animation" or transition set this to dictate who has the power on what runs
+
 */
