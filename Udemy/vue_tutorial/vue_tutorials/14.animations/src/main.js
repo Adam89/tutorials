@@ -60,4 +60,9 @@ call animation in the transition tag v-on:before-enter="SPECIFY FUNCTION TO RUN 
 you can add css clases to all these hooks
 
 :css="false" on js animations means don't look for css and execute JS hooks
+
+dynamic components can also be wrapped in transitions too using names and mode out in
+
+
+
 */
