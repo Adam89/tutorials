@@ -45,18 +45,28 @@
                 v-on:before-leave="beforeLeave"
                 v-on:leave="leave"
                 v-on:after-leave="afterLeave"
-                v-on:leave-cancelled="leaveCancelled">
+                v-on:leave-cancelled="leaveCancelled" :css="false">
                     <div class="jsAnimation" v-if="load">
 
                     </div>
 
                 </transition>
+                <hr>
+                <button class="btn btn-primary" v-on:click="selectedComponent == 'appSucessAlert' ? selectedComponent = 'appDanagerAlert' : selectedComponent = 'appSucessAlert' ">Toggle Components</button>
+                <hr>
+                <transition name="fade" mode="out-in">
+                <component v-bind:is="selectedComponent"></component>
+                 </transition>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+
+import danagerAlert from './dangerAlert.vue';
+import sucessAlert from './sucessAlert.vue';
+
     export default {
         data() {
             return {
@@ -65,18 +75,29 @@
                 showLoad: true,
                 alertAnimation: 'fade',
                 showMultiple: true,
-                load: false
+                load: false,
+                elementWidth: 100,
+                selectedComponent: 'appSucessAlert'
             }
         },
         methods: {
             beforeEnter(el) { //es6 we receive an arg its the element on which the animation is performed
                 console.log('beforeEnter');
+                this.elementWidth = 100;
+                el.style.width = this.elementWidth + 'px';
 
             },
-            enter(el, done) {
-
+            enter(el, done) { // animate
+                let round = 1;
+                const interVal = setInterval(() => {
+                    el.style.width = (this.elementWidth + round * 10) + 'px';
+                    round ++;
+                    if (round > 20 ){
+                        clearInterval(interVal);
+                        done();
+                    }
+                }, 20);
                 console.log('enter');
-                done();
             },
             afterEnter(el) {
                 console.log('afterEnter');
@@ -86,12 +107,21 @@
             },
             beforeLeave(el) { //es6 we receive an arg its the element on which the animation is performed
                 console.log('beforeleave');
+                this.elementWidth = 300;
+                el.style.width = this.elementWidth + 'px';
 
             },
-            leave(el, done) {
-
+            leave(el, done) { //animate
                 console.log('leave');
-                done();
+                let round = 1;
+                 const interVal = setInterval(() => {
+                    el.style.width = (this.elementWidth - round * 10) + 'px';
+                    round ++;
+                    if (round > 20 ){
+                        clearInterval(interVal);
+                        done();
+                    }
+                }, 20);
             },
             afterLeave(el) {
                 console.log('afterleave');
@@ -99,6 +129,10 @@
             leaveCancelled(el) {
                 console.log('leaveCancelled');
             }
+        },
+        components: {
+            appDanagerAlert: danagerAlert,
+            appSucessAlert: sucessAlert
         }
     }
 </script>
@@ -134,7 +168,7 @@
 }
 
 .jsAnimation {
-    width: 100px;
+    width: 300px;
     height: 100px;
     background-color: red;
 }

@@ -41,7 +41,9 @@ mode="in-out" does the opposite new in first before old animates out
 
 vue js allows us to listen to JS Transition event hooks to animate using JS
 
-enter when animation starts
+before-enter: we receive an arg its the element on which the animation is performed
+
+enter when animation starts enter gets two args el and done when animation is finished done tells vue js when the animation is finished
 
 after-enter hook executed once animation is finished
 
@@ -56,4 +58,6 @@ after leave cancelled - something that changes the condition of the animation le
 call animation in the transition tag v-on:before-enter="SPECIFY FUNCTION TO RUN HERE"
 
 you can add css clases to all these hooks
+
+:css="false" on js animations means don't look for css and execute JS hooks
 */
