@@ -57,6 +57,18 @@
                 <transition name="fade" mode="out-in">
                 <component v-bind:is="selectedComponent"></component>
                  </transition>
+                 <hr>
+                 <button class="btn btn-primary" v-on:click="addItem">Add Item</button>
+                 <hr>
+
+                 <ul class="list-group">
+                    <transition-group name="slide">
+                     <li class="list-group-item"
+                     v-for="(number, indexy) in numbers"
+                     v-on:click="removeItem(index)" v-bind:key="number">{{number}}</li>
+                    </transition-group>
+                 </ul>
+
             </div>
         </div>
     </div>
@@ -77,7 +89,8 @@ import sucessAlert from './sucessAlert.vue';
                 showMultiple: true,
                 load: false,
                 elementWidth: 100,
-                selectedComponent: 'appSucessAlert'
+                selectedComponent: 'appSucessAlert',
+                numbers: [1,2,3,4,5]
             }
         },
         methods: {
@@ -128,6 +141,13 @@ import sucessAlert from './sucessAlert.vue';
             },
             leaveCancelled(el) {
                 console.log('leaveCancelled');
+            },
+            addItem() {
+                const pos = Math.floor(Math.random() * this.numbers.length); // get a random position gives random number multiplied by length combined with math floor will give me a number between 0 and the highest index in the array
+                this.numbers.splice(pos, 0, this.numbers.length + 1); // splice at position don't remove and add new element to array at POS
+            },
+            removeItem(index) {
+                this.numbers.splice(index, 1);
             }
         },
         components: {
@@ -165,12 +185,19 @@ import sucessAlert from './sucessAlert.vue';
     animation: slide-out 1s ease-out forwards;
     transition: opacity .1s;
     opacity: 0;
+    position: absolute;
+}
+.slide-move {
+    transition: transform 1s;
 }
 
 .jsAnimation {
     width: 300px;
     height: 100px;
     background-color: red;
+}
+.list-group-item {
+    cursor: pointer;
 }
 @keyframes slide-in {
     from {

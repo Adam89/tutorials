@@ -63,6 +63,10 @@ you can add css clases to all these hooks
 
 dynamic components can also be wrapped in transitions too using names and mode out in
 
+<transition-group> is used for animate lists or groups of elements
 
+you always have to key a transition group other vue js cannot identity individual items in a list
+
+transition group gives us access to new css class .slide-move attached to any element that changes it place such a list
 
 */
