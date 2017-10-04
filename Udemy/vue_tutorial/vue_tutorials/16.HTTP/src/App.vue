@@ -36,7 +36,7 @@
     	methods: {
     		submit() { // send data to firebase
     			// console.log(this.users);
-    			this.$http.post('https://vuejs-http-69e5f.firebaseio.com/data.json', this.users) // creates a data.json node
+    			this.$http.post('', this.user) // creates a data.json node
     			.then( response => {// then is a method available on the promises approach function to be executed once post requests is sent and response received
     				console.log(response);
     			}, error => {
@@ -44,7 +44,7 @@
     			});
     		},
     		fetchData() { // fetch data from firebase and store in an array
-    			this.$http.get('https://vuejs-http-69e5f.firebaseio.com/data.json')
+    			this.$http.get('')
     			.then(response => { //vue resource gives us some helper methods on responses
     				return response.json(); // all async tasks finished so you have acess to data below
 

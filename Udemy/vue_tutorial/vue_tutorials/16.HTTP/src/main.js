@@ -4,6 +4,17 @@ import App from './App.vue'
 
 Vue.use(VueResource) // tells vue js to add a plugin to core vue functionality
 
+Vue.http.options.root = 'https://vuejs-http-69e5f.firebaseio.com/data.json' // you can then send end points in your vue instances central place were code is stored could also set custom headers or content types
+Vue.http.interceptors.push((request, next) =>{ //array of functions we want to execute on each request
+
+	console.log(request)
+	if (request.method == 'POST') {
+			request.method = 'PUT';
+	}
+next();
+});
+
+
 new Vue({
   el: '#app',
   render: h => h(App)
@@ -37,6 +48,11 @@ response.json() first it gives us a promise as it doesn't have data straight awa
 extracts body of response and converts it to json so front end can use it
 
 vue js clever enough to update dom on get request when it changes
+
+can add Vue.http in main js to store api end point and set global options doesn't need $ as this is only needed when inside a vue instance
+
+
+Vue resource allows you to intercept requests
 */
 
 
