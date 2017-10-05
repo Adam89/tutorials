@@ -4,14 +4,20 @@ import App from './App.vue'
 
 Vue.use(VueResource) // tells vue js to add a plugin to core vue functionality
 
-Vue.http.options.root = 'https://vuejs-http-69e5f.firebaseio.com/data.json' // you can then send end points in your vue instances central place were code is stored could also set custom headers or content types
+Vue.http.options.root = 'https://vuejs-http-69e5f.firebaseio.com/' // you can then send end points in your vue instances central place were code is stored could also set custom headers or content types
 Vue.http.interceptors.push((request, next) =>{ //array of functions we want to execute on each request
 
-	console.log(request)
+	console.log(request);
 	if (request.method == 'POST') {
 			request.method = 'PUT';
 	}
-next();
+next( response => { // look at response can be done as new interceptor or just chained to the request interceptors next method
+		response.json = () => {
+			console.log(response);
+		return {messages: response.body }; //return new object with a key you can loop through stored in messages
+		console.log(response);
+		};
+	});
 });
 
 
@@ -53,6 +59,9 @@ can add Vue.http in main js to store api end point and set global options doesn'
 
 
 Vue resource allows you to intercept requests
+
+Vue resource allows us to set up our own resources using the method this.$resource() take 3 args first resource end point can also store parameters in objects and make reusable resources across the app
+
+make url more flexible end points vue resource supports the setup of your end points as templates URi templates {node}.json' replace node using v-model etc gives ability to exchange pieces your sending or getting you requests too
+
 */
-
-
