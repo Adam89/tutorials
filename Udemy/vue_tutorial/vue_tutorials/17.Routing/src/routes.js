@@ -12,8 +12,10 @@ export const routes = [ // holds routes in an array which holds objects with dif
 	default: Home,
 	'header-top': Header
 }}, // this gets loaded first as no path
+
+
 { path: '/user', component: User, components:{
-	default: User,
+	default: User, //default component
 	'header-bottom': Header
 },
 
@@ -22,8 +24,11 @@ children: [
 	{path: '', component: UserStart }, //loads user start on user component
 	{path: ':id', component: UserDetail },
 	{path: ':id/edit', component: UserEdit, name: 'userEdit' },
-
 		]
-
 	},
+	{
+		path:'/redirect-me', redirect: '/user' //specify a path to redirect the user
+	},
+	{path: '*', redirect: '/'} // star is a wildcard character which catches all other wrong urls catch all redirect
+
 ];

@@ -7,9 +7,19 @@ Vue.use(VueRouter); // routing added to application
 
 const router = new VueRouter({ //pass object where i set up my router
 	routes,// es6 key and value is the same routes: routes
-	mode: 'history'// allows nicer url needs to return index.html from server
+	mode: 'history',// allows nicer url needs to return index.html from server
+	scrollBehaviour(to, from, savedPosition) { // function exspects to get back and x and y or a selector
+		if (savedPosition) {
+			return savedPosition;
+		}
+		if (to.hash) { // hash has been set
+		    return { selector: to.hash};
+		    console.log('test');
+		}
+		// return { x: 0, y: 700 };
+		}
 
-})
+});
 
 
 new Vue({
@@ -50,11 +60,15 @@ new Vue({
 
  14. you can pass a object also like this {name: 'userEdit', params: {id: $route.params.id}} with parameters as key value pairs and name set in routes.js
 
- 15: Query strings you can add query as a property to the route object on v-bind:to <router-link tag="button" v-bind:to="{name: 'userEdit', params: {id: $route.params.id}, query:{locale: 'en', q: 100}}" if you have links which allow you to update the page without destroying the component then you will have to set a watcher to update the data on edit user component your able to send query parameters and send them and not just normal params
+ 15: Query strings you can add query as a property to the route object on v-bind:to <router-link tag="button" v-bind:to="{name: 'userEdit', params: {id: $route.params.id}, query:{locale: 'en', q: 100}}" if you have links which allow you to update the page without destroying the component then you will have to set a watcher to update the data on edit user component your able to send query parameters and send them and not just normal params you can also pass hash fragments to allow you to drop down to a hash anchor
 
  16. you can name your router views this allows you to specifically switch your layout around depending on routes reserve certain spots to dynamically render components there depend on which route
 
+ 17.star is a wildcard character which catches all other wrong urls basically a catch all redirect
 
+ 18.you can wrap a router view in a transition tag to animate it
+
+19. scrollBehaviour can be set on the vue router which takes 3 args to from and savedPosition it exspects to return an object with x and y or a selector #DIV ELEMENT
 
 
 
