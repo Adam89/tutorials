@@ -22,7 +22,10 @@ export const routes = [ // holds routes in an array which holds objects with dif
 children: [
 //sub components to user component
 	{path: '', component: UserStart }, //loads user start on user component
-	{path: ':id', component: UserDetail },
+	{path: ':id', component: UserDetail, beforeEnter: (to,from,next) => {
+		console.log('inside a route setup');
+		next();
+	}},
 	{path: ':id/edit', component: UserEdit, name: 'userEdit' },
 		]
 	},

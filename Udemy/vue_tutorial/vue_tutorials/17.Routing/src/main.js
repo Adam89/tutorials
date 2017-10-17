@@ -8,25 +8,32 @@ Vue.use(VueRouter); // routing added to application
 const router = new VueRouter({ //pass object where i set up my router
 	routes,// es6 key and value is the same routes: routes
 	mode: 'history',// allows nicer url needs to return index.html from server
-	scrollBehaviour(to, from, savedPosition) { // function exspects to get back and x and y or a selector
+	scrollBehavior(to, from, savedPosition) { // function expects to get back and x and y or a selector
 		if (savedPosition) {
 			return savedPosition;
 		}
 		if (to.hash) { // hash has been set
 		    return { selector: to.hash};
-		    console.log('test');
+
 		}
 		// return { x: 0, y: 700 };
 		}
 
 });
 
+//execute this before each routing action commences
+router.beforeEach((to, from, next) => {
+	console.log('global beforeEach');
+	next(); // have to execute next otherwise it won't go to route
+	// next(false); to abort and stay on current page
+	// or next(link as object or string or router.push params)
+});
 
 new Vue({
   el: '#app',
   router,
   render: h => h(App)
-})
+});
 
 
 /*
@@ -70,7 +77,26 @@ new Vue({
 
 19. scrollBehaviour can be set on the vue router which takes 3 args to from and savedPosition it exspects to return an object with x and y or a selector #DIV ELEMENT
 
+20. route checks is a user allowed to enter or leave. router.beforeEach((to, from, next)); gets a function as an arg route to from and callback next execute to let request continue the journey
 
+21.can also pass in a function or hardcode a function within a specif route setup {path: ':id', component: UserDetail, beforeEnter: (to,from,next) => {
+		console.log('inside a route setup');
+		next();
+	}}, limited to a specific route level
 
+23. you can also implement on a component level which gives you acess to two new methods
+
+beforeRouteEnter(to,from,next)
+if you don't call next on a component level the vue instance and component will not get initialized which means you won't be able to access property s in the vue instance using this.
+
+if we need to access you can pass a callback to the next function and pass the vm (vue model) and in there you can access property's with
+
+next(vm => {
+		vm.link;
+	});
+
+inside the next function it's a callback which is executed once the component has loaded. however the component has been created. So if you want to check if this component should be created then you need to do it outside of the next function
+
+so you can decide on access in 3 different places depending on how granular you want to be
 
 */

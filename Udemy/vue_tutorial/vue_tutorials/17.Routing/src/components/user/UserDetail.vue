@@ -23,6 +23,14 @@
 					hash: '#data'
 					}
 				}
+			},
+			beforeRouteEnter(to,from,next) {
+				console.log('inside component');
+				if (true){ // user is approved
+				next();
+				} else {
+				next(false);
+				}
 			}
 		}
 </script>
