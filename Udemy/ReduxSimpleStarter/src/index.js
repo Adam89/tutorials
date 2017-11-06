@@ -76,4 +76,4 @@ class App extends Component { // app needs to keep track of list of videos so it
 }
 
 
-ReactDOM.render( < App / > , document.querySelector('.container')); // insert to dom
+ReactDOM.render( < App / > , document.querySelector('.container')); // insert instance of app to dom
