@@ -5,8 +5,8 @@ import React, {Component} from 'react'; // import react and pull of component an
 --------------- Events ---------------
 
 handling events in react has 2 steps
-declare event handler
-pass the event handler to the element that we want to monitor for events
+declare event handler function ran when event occurs
+pass the event handler to the element that we want to monitor for events know when input ele inside search bar has text changed
 
 onChange is a prop or property access to the change event react specific
 value is a prop or property access that sets the value
