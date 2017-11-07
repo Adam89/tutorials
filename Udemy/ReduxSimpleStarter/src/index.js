@@ -10,6 +10,8 @@ Always one component per file. Make sure you break up your app into individual i
 
 A class component is used when we want a component to have internal record keeping ability to be aware of itself and whats happened to it when its rendered;
 
+ES6 Class is a JS object with property's and methods like a constructor function.
+
 Functional component the props object is an argument
 
 Class props are available in any method we define by using this.props keep in my mind when refactoring functinal components to class based
@@ -68,6 +70,7 @@ class App extends Component { // app needs to keep track of list of videos so it
     }
     render() {
         return ( < div >
+            hi
             < SearchBar / >
             <VideoList videos={this.state.videos}/>
             </div>

@@ -38,13 +38,13 @@ only the most parent component in the application should be responsible for fetc
 
 
 
-class SearchBar extends Component { //SearchBar class component JS object define a new class and give it access to all react.component functionality
+class SearchBar extends Component { //SearchBar class component JS object define a new class and give it access to all react.component functionality access to methods etc
 	constructor(props) {
 		super(props);
 
 		this.state = { term: ''}; // this is the only place we manipulate state. this.state = object everywhere else in the component we use this.setState to change the state
 	}
-	render() { // this is a method on a class return some JSX
+	render() { // this is a method on a class return some JSX all class based components needs this
 		return (
 			<div>
 				<input
@@ -53,6 +53,6 @@ class SearchBar extends Component { //SearchBar class component JS object define
 			</div>
 		);
 	}
-}
+};
 
-export default SearchBar; // exports only the search bar components
+export default SearchBar;
