@@ -22,7 +22,7 @@ class based components only get access to state each instance. define constructo
 
 Controlled field is a form element whose value is set by the state value only ever changes when state changes
 
- this.setState allows you to pass new objects to this.state which then triggers a re render
+ this.setState allows you to pass new objects to this.state which then triggers a re render input tell the state to change
 
 functional components don't have access to state
 functional components can take in class based components in the JSX
