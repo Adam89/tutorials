@@ -14,9 +14,15 @@ value is a prop or property access that sets the value
 
 --------------- State ------------------------------
 
-is a plain JS object that is used to record and react to a user's event. Each class based component has it's own state object.When a component changes the render function runs and the state changes.
+is a plain JS object that is used to record and react to a user's event. Each class based component has it's own state object.When a component changes the render function runs and the state changes. This forces it children to re render. you need to initialize state to begin inside of the class constructor function. All js classes have a constructor function. Its the first function called automatically when you create a new instance of that class. The constructor function is reserved for setup initialize variables and state.
+
+create new object and assign this.state we assign key and value pairs that we want to record on the state.
+
+class based components only get access to state each instance. define constructor method and setting the state.
 
 Controlled field is a form element whose value is set by the state value only ever changes when state changes
+
+ this.setState allows you to pass new objects to this.state which then triggers a re render
 
 functional components don't have access to state
 functional components can take in class based components in the JSX
