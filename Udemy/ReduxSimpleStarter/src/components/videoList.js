@@ -1,14 +1,15 @@
-//functional component
+//functional component props object is an argument
+//class based component props are available anywhere in any method using this.props
 
 import React from 'react';
 import VideoListItem from './videoListItem';
 
+
 // loop over array and generate one instance of video list item
 
 
-const VideoList = (props) => { // takes a state property from index JS
+const VideoList = (props) => { // gets data from index js state as thats the parent which pass props to video list child array of videos
 
-	console.log(props);
 
 	const videoItems = props.videos.map((video) => { // loop over videos array and pumps into video list item LI because of import also added unique keys to target items
 		return <VideoListItem key={video.etag} video={video}/>

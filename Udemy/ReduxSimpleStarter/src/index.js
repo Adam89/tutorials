@@ -35,13 +35,10 @@ Class props are available in any method we define by using this.props keep in my
 
 import React, { Component } from 'react'; // go find library and assign it to React variable this library knows how to work with render react components and nest them grab components
 import ReactDOM from 'react-dom'; // react dom is library for rendering JSX to the DOM
-import YTSearch from 'youtube-api-search'; //package
+import YTSearch from 'youtube-api-search'; //package for youtube api search
 import SearchBar from './components/searchbar';
 import VideoList from './components/videoList';
-
 const youtube_Api_Key = 'AIzaSyBsj2cI1pDVoTdWrojxyp6AHhQ5Sm6wxtQ';
-
-
 
 
 // const App = () => { // type of functional component this is a class not an instance
@@ -53,19 +50,19 @@ const youtube_Api_Key = 'AIzaSyBsj2cI1pDVoTdWrojxyp6AHhQ5Sm6wxtQ';
 //  );
 // }
 
+//class based components
 
-
-class App extends Component { // app needs to keep track of list of videos so it will recording the videos on its state. data will change over time hence why it needs to be on the state
+class App extends Component { // app needs to keep track of list of videos so it will be recording the videos on its state. data will change over time hence why it needs to be on the state
     constructor(props) {
         super(props);
         this.state = { videos: [] }; //array contains a list of video when app boots up and YT SEARCH RUNS
 
         YTSearch({
             key: youtube_Api_Key,
-            term: 'surfboards'
-        }, (videos) => {// we also pass data or pass props to video list below
+            term: 'corbyn'
+        }, (videos) => {// we also pass data or pass props to video list below app parent pass data to child video list
             this.setState({ videos }); // es6 allows use just videos when key and property parameter we are passing are the same
-            console.log(videos);
+            // console.log(videos);
         }); // fetched youtube array of surfboards
     }
     render() {

@@ -31,7 +31,7 @@ functional components can take in class based components in the JSX
 
 --------------- Downwards data flow ------------------------------
 
-only the most parent component in the application should be responsible for fetching data
+only the most parent component in the application should be responsible for fetching data index is the most parent so app is the root
 
 ------------------------------------------------------------
 */
