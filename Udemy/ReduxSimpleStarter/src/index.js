@@ -16,6 +16,16 @@ Functional component the props object is an argument
 
 Class props are available in any method we define by using this.props keep in my mind when refactoring functinal components to class based
 
+
+/*
+Components
+
+Do i need it to maintain any kid of state. This should help you define a functional component or class based.
+
+
+
+*/
+
 /*
 
 1.Create a new component. This component should produce some HTML.
@@ -59,7 +69,7 @@ class App extends Component { // app needs to keep track of list of videos so it
 
         YTSearch({
             key: youtube_Api_Key,
-            term: 'corbyn'
+            term: 'skateboarding'
         }, (videos) => {// we also pass data or pass props to video list below app parent pass data to child video list
             this.setState({ videos }); // es6 allows use just videos when key and property parameter we are passing are the same
             // console.log(videos);
