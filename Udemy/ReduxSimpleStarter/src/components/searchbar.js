@@ -52,13 +52,18 @@ class SearchBar extends Component { //SearchBar class component JS object define
 	}
 	render() { // this is a method on a class return some JSX all class based components needs this
 		return (
-			<div>
+			<div className="search-bar">
 				<input
 					value={this.state.term} // value provided by state controlled component
-					onChange={event => this.setState({ term: event.target.value})} />
+					onChange={event => this.onInputChange(event.target.value)}/>
 			</div>
 		);
 	}
-};
+
+	onInputChange(term) { // new method on the class
+		this.setState({term}); // sets state of search bar component
+		this.props.onSearchTermChange(term); // passes value to app component which runs video search method this is a callback function 
+	}
+}
 
 export default SearchBar;
