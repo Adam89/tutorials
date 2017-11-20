@@ -22,7 +22,7 @@ on a counter redux keeps track of current count where as react creates the video
 
 most important part is how to design your state in terms of thinking how to model the state
 
-Container: is a react component that has a direct connection to the state managed by redux its the bridge between the views and redux. Most parent component should be container but be careful as sometimes app doesn't care about the state sometimes. Only create containers out of particular components that care about a particular bit of state.
+Container: is a react component that has a direct connection to the state managed by redux its the bridge between the views and redux. Most parent component should be container but be careful as sometimes app doesn't care about the state sometimes. Only create containers out of particular components that care about a particular bit of state.The most parent component
 
 ------------------------------------------- Reducer ------------------------------------
 
