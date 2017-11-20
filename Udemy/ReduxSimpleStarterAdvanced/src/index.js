@@ -28,7 +28,7 @@ Video Select functionality : pass a callback down two levels to the search baron
 
 Search bar functionality : pass a callback down to the search bar which takes a string and makes a new ytserach which updates state of app
 
-Component level state localised state but redux is different as you control the apps state 
+Component level state localised state but redux is different as you control the apps state
 
 */
 
@@ -47,7 +47,7 @@ Component level state localised state but redux is different as you control the 
 
 ------------------------------------------- Redux ------------------------------------
 
-predictable state container for JS applications - 
+predictable state container for JS applications -
 keep the data and the views seperate they combine to make a fully working app
 redux is the wrapper for the data whilst react is the wrapper for the view layer
 centralise all the apps data into a central single object which is reffered to as the state this is managed by redux. application level state is redux.
@@ -58,7 +58,7 @@ most important part is how to design your state in terms of thinking how to mode
 
 ------------------------------------------- Reducer ------------------------------------
 
-A reducer is a function that returns a piece of the applications state because the app can have many states we can have loads of reducers. Books and active bookes would be two reducers
+A reducer is a function that returns a piece of the applications state because the app can have many states we can have loads of reducers. Books and active books would be two reducers
 
 ------------------------------------------- Redux ------------------------------------
 
@@ -100,7 +100,7 @@ class App extends Component { // app needs to keep track of list of videos so it
         this.videoSearch('skateboarding'); // first render call videoSearch function
     }
 
-    videoSearch(term) { // method passes to searchbar component 
+    videoSearch(term) { // method passes to searchbar component
         YTSearch({
             key: youtube_Api_Key,
             term: term
@@ -120,9 +120,9 @@ class App extends Component { // app needs to keep track of list of videos so it
         const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300); // take inner function and call it every 300 miliseconds
 
         return (< div >
-            <SearchBar onSearchTermChange={videoSearch}/>  
-            <VideoDetail video={this.state.selectedVideo}/>  
-            <VideoList onVideoSelect={selectedVideo => this.setState({ selectedVideo })} videos={this.state.videos}/>  
+            <SearchBar onSearchTermChange={videoSearch}/>
+            <VideoDetail video={this.state.selectedVideo}/>
+            <VideoList onVideoSelect={selectedVideo => this.setState({ selectedVideo })} videos={this.state.videos}/>
             </div >
         );
     }

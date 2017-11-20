@@ -45,6 +45,18 @@ Component level state localised state but redux is different as you control the 
 4. nested components to render a list of components
 5. one wrapping index.js which has all other components as child
 
+------------------------------------------- Redux ------------------------------------
+
+predictable state container for JS applications - 
+keep the data and the views seperate they combine to make a fully working app
+redux is the wrapper for the data whilst react is the wrapper for the view layer
+centralise all the apps data into a central single object which is reffered to as the state this is managed by redux. application level state is redux.
+on a counter redux keeps track of current count where as react creates the video for the counter add button remove button.
+
+most important part is how to design your state in terms of thinking how to model the state
+
+------------------------------------------- Redux ------------------------------------
+
 
 
 */
@@ -55,6 +67,8 @@ import YTSearch from 'youtube-api-search'; //package for youtube api search
 import SearchBar from './components/searchbar';
 import VideoList from './components/videoList';
 import VideoDetail from './components/videoDetail'; //need to pass a video to this component add
+
+
 const youtube_Api_Key = 'AIzaSyBsj2cI1pDVoTdWrojxyp6AHhQ5Sm6wxtQ';
 
 
@@ -85,7 +99,7 @@ class App extends Component { // app needs to keep track of list of videos so it
         YTSearch({
             key: youtube_Api_Key,
             term: term
-        }, (videos) => {// we also pass data or pass props to video list below app parent pass data to child video list
+        }, (videos) => { // we also pass data or pass props to video list below app parent pass data to child video list
             this.setState({
 
                 videos: videos,
@@ -97,20 +111,18 @@ class App extends Component { // app needs to keep track of list of videos so it
     }
 
     render() {
+
         const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300); // take inner function and call it every 300 miliseconds
-        return (
-            < div >
-                <SearchBar 
-                    onSearchTermChange={videoSearch} />
-                <VideoDetail 
-                    video={this.state.selectedVideo} />
-                <VideoList
-                    onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
-                    videos={this.state.videos} />
-            </div>
+
+        return ( <div >
+            <SearchBar onSearchTermChange = { videoSearch }/> 
+            <VideoDetail video = { this.state.selectedVideo }/> 
+            <VideoList onVideoSelect = { selectedVideo => this.setState({ selectedVideo }) }
+            videos = { this.state.videos }/> 
+            </div >
         );
     }
 }
 
 
-ReactDOM.render(< App />, document.querySelector('.container')); // insert instance of app to dom
+ReactDOM.render( < App / > , document.querySelector('.container')); // insert instance of app to dom
