@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import BooksReducer from './reducer_books';
+import BooksReducer from './reducer_books'; // import book list object
 
 const rootReducer = combineReducers({
-	books: BooksReducer // object with key and value key is the name of the state
 
+    books: BooksReducer // object with key and value key is the name of the state global app state hence why you can acess book in the container
 
 });
 
@@ -22,7 +22,7 @@ on a counter redux keeps track of current count where as react creates the video
 
 most important part is how to design your state in terms of thinking how to model the state
 
-Container: is a react component that has a direct connection to the state managed by redux its the bridge between the views and redux. Most parent component should be container but be careful as sometimes app doesn't care about the state sometimes. Only create containers out of particular components that care about a particular bit of state.The most parent component
+CONTAINER: is a react component that has a direct connection to the state managed by redux its the bridge between the views and redux. Most parent component should be container but be careful as sometimes app doesn't care about the state sometimes. Only create containers out of particular components that care about a particular bit of state.The most parent component should be connected to redux its using a plugin called React-redux to act as the bridge. When you link a component to redux it becomes a container. 
 
 ------------------------------------------- Reducer ------------------------------------
 
