@@ -28,5 +28,12 @@ CONTAINER: is a react component that has a direct connection to the state manage
 
 A reducer is a function that returns a piece of the applications state because the app can have many states we can have loads of reducers. Books and active books would be two reducers. They are smart components
 
+
+------------------------------------------- Action creaters ------------------------------------
+
+Actions and action creaters help us change / manage state. Action creaters are function that returns an action / object which is sent to all reducers in your app. Reducers can choose dpending on action to return a different piece of state. That new state gets piped in app state then app state gets pumped into react app which re renders all components
+
+UserAction > calls action creater > action creater returns obkect > actin auto sent to all reducers > reducers process action and return state > pass state to new container > re render app 
+
 ------------------------------------------- Redux ------------------------------------
 */
