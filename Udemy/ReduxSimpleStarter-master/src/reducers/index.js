@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import BooksReducer from './reducer_books'; // import book list object
+import ActiveBook from './reducer_active_book';
+
 
 const rootReducer = combineReducers({
 
-    books: BooksReducer // object with key and value key is the name of the state global app state hence why you can acess book in the container
-
+    books: BooksReducer, // object with key and value key is the name of the state global app state hence why you can acess book in the container
+    activeBook: ActiveBook
 });
 
 export default rootReducer;
@@ -28,7 +30,15 @@ CONTAINER: is a react component that has a direct connection to the state manage
 
 A reducer is a function that returns a piece of the applications state because the app can have many states we can have loads of reducers. Books and active books would be two reducers. They are smart components
 
+All reducers get two arguments acess to state and action. They are only ever called when action occurs.
 
+state argument is not application state, only the state that this reducers is responsible for.
+
+most reducers use switch statements to manage state
+
+never mutate state or return 100% clean state
+
+reducers boot up on inital app load and pass some default actions through them
 ------------------------------------------- Action creaters ------------------------------------
 
 Actions and action creaters help us change / manage state. Action creaters are function that returns an action / object which is sent to all reducers in your app. Reducers can choose dpending on action to return a different piece of state. That new state gets piped in app state then app state gets pumped into react app which re renders all components

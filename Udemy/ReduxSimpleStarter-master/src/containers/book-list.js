@@ -35,7 +35,7 @@ return {
 
 
 //anything return from function will end up as props on booklist container
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) { // pass it to the actions
 	// when select book is called result passed to all reducers through the dispacth function
 	return bindActionCreators({selectBook: selectBook }, dispatch) // uses action creator imported from top
 }
