@@ -6,5 +6,5 @@ export default function(state = null, action) {
         case 'BOOK_SELECTED': // if action type is book selected
         return action.payload // return selected book
     }
-    return state
+    return state // hits this on inital load
 }
