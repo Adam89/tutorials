@@ -9,9 +9,9 @@ export const FETCH_WEATHER = 'FETCH_WEATHER'; // extract to variable and export 
 export function fetchWeather(cityName) { // always pass cityame
 
     const url = `${ROOT_URL}&q=${cityName},us`;
-    // console.log(url);
-    const request = axios.get(url); // make get request using URL 
-    // console.log('Request:', request);
+    console.log(url);
+    const request = axios.get(url); // make get request using URL returns a promise
+    console.log('Request:', request);
     return {
         type: FETCH_WEATHER,
         payload: request // payload is additional info that gets passed with action return promise on payload
