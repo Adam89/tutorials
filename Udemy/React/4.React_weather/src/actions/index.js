@@ -31,4 +31,4 @@ export function fetchWeather(cityName) { // always pass cityame
 //-- -- -- -- -- -- -- -- -- --Middlewares-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 
 
-// promise doesn't 
+// if pauload is a promise redux promise stops action entirerly once the requst finishes dispacth new action with the resolved request means we only have to work with data in our reducers not promises 
