@@ -9,9 +9,9 @@ export const FETCH_WEATHER = 'FETCH_WEATHER'; // extract to variable and export 
 export function fetchWeather(cityName) { // always pass cityame
 
     const url = `${ROOT_URL}&q=${cityName},us`;
-    console.log(url);
+    // console.log(url);
     const request = axios.get(url); // make get request using URL returns a promise
-    console.log('Request:', request);
+    // console.log('Request:', request);
     return {
         type: FETCH_WEATHER,
         payload: request // payload is additional info that gets passed with action return promise on payload
@@ -31,4 +31,4 @@ export function fetchWeather(cityName) { // always pass cityame
 //-- -- -- -- -- -- -- -- -- --Middlewares-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 
 
-// if pauload is a promise redux promise stops action entirerly once the requst finishes dispacth new action with the resolved request means we only have to work with data in our reducers not promises 
+// if payload is a promise redux promise stops action entirerly once the requst finishes dispacth new action with the resolved request means we only have to work with data in our reducers not promises 
