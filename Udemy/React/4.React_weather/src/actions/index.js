@@ -6,7 +6,7 @@ ${API_KEY}`;
 //1.create action creator to fetch weather data
 export const FETCH_WEATHER = 'FETCH_WEATHER'; // extract to variable and export use variable below to keep our actions types consistent betweeon actions and reducers. 
 
-export function fetchWeather(cityName) { // always pass cityame
+export function fetchWeather(cityName) { // always pass cityname
 
     const url = `${ROOT_URL}&q=${cityName},us`;
     // console.log(url);
