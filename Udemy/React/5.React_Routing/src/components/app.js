@@ -7,3 +7,7 @@ export default class App extends Component {
     );
   }
 }
+
+
+// 1.load app show list of blog posts via Ajax
+//
