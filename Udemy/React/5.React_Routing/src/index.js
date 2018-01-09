@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import reducers from './reducers';
 import PostsIndex from './components/post_index'; // need to import it here so its avaliable below
+import PostsNew from './components/posts_new';
 import promise from 'redux-promise';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
@@ -29,7 +30,10 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
     <div>
+    <Switch>
+      <Route path="/posts/new" component={PostsNew} />
       <Route path="/" component={PostsIndex} />
+    </Switch>
     </div>
     </BrowserRouter>
   </Provider>
@@ -44,3 +48,11 @@ ReactDOM.render(
   // two important things we pass required on route compoentes path="ALWAYS A STRING IF A USER GO TO ROUTE SHOW THIS COMPONENT" component={COMPONENT YOU WANT TO GO TO} 
 
   // dont need app js when you route. Now when app is loaded it goes to / to start
+
+  //react router loosely matches path so shows multiple components by accident.
+
+  //Switch takes in a collection of different routes that are nested it looks at all the routes and only shows the first match.
+
+  // Most specific routes at the top of the list
+
+// to link between pages <Link className="btn btn-primary" to="/posts/new">Add a post </Link >
