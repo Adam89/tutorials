@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import reducers from './reducers';
 import PostsIndex from './components/post_index'; // need to import it here so its avaliable below
 import PostsNew from './components/posts_new';
+import PostsShow from './components/posts_show';
 import promise from 'redux-promise';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
@@ -32,6 +33,7 @@ ReactDOM.render(
     <div>
     <Switch>
       <Route path="/posts/new" component={PostsNew} />
+          <Route path="/posts:id" component={PostsShow} />
       <Route path="/" component={PostsIndex} />
     </Switch>
     </div>
@@ -56,3 +58,7 @@ ReactDOM.render(
   // Most specific routes at the top of the list
 
 // to link between pages <Link className="btn btn-primary" to="/posts/new">Add a post </Link >
+
+// react router passes in alot of helpers and functions to each component to help with progtamatic navigation  this.props.history.push('/');
+
+//id is wildcard so the route takes what is in url and passes it as a prop to the route 

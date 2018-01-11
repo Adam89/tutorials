@@ -1,11 +1,14 @@
 import _ from 'lodash'
 import { FETCH_POSTS } from '../actions/fetch_post';
+import { CREATE_POST } from '../actions/fetch_post';
 
 
 export default function(state = {} , action) { // export previous state and new action default state is object
     switch (action.type) {
         case FETCH_POSTS:
         return _.mapKeys(action.payload.data, 'id'); // fetch initial list of posts transform array of objects into individual objects
+        case CREATE_POST:
+        return 
         default:
             return state;
     }

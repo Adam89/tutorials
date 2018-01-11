@@ -1,24 +1,41 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from 'redux-form';
-
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createPost } from '../actions/fetch_post';
 class PostsNew extends Component {
     renderField(field) { // field calls this function return JSX wire up to field component. field object returns event handlers that we need to wire up to the jsx
+        const { meta: { touched, error } } = field; // destructuring;
+
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`
+
         return (
-        <div className="form-group">
+        <div className={className}>
         <label>{field.label}</label>
             <input
                 className="form-control"
                 type="text"
             {...field.input}
             />
-            {field.meta.error}
+            <div className="text-help">
+            {touched ? error : ''}
+            </div>
         </div>
         );
+    }
+
+    onSubmit(values) {
+        console.log(values);
+        // call action creator that has api request
+
+        this.props.createPost(values, () => {
+            this.props.history.push('/');
+        });
     }
     render() {
         const { handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit}(this.onSubmit.bind(this))}>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <Field
                 label="Title"
                 name="title"
@@ -35,6 +52,7 @@ class PostsNew extends Component {
                 component={this.renderField}
             />
             <button type="submit" className="btn btn-primary">Submit</button>
+            <Link to="/" className="btn btn-danger">Cancel</Link>
         </form>
         );
     }
@@ -42,7 +60,6 @@ class PostsNew extends Component {
 
 
 function validate(values) {
-    console.log(values,'test');
     const errors = {}; // empty object if empty form is valid if it has any properties then it is not valid
     //validate inputs from values object
     if (!values.title) {
@@ -61,7 +78,9 @@ function validate(values) {
 export default reduxForm({
     validate, // key and value the same so only say it once
     form: 'PostsNewForm' //unique string allows isolation
-})(PostsNew);
+})(
+    connect(null, { createPost })(PostsNew) // stack up multiple helpers
+);
 
 // reduxForm is similar to connect helper is allows us to communicate with the form reuducer and our component to communicate to the redux store.
 
@@ -78,3 +97,12 @@ export default reduxForm({
 // the field parameter passed into the function it contains and event handler or two it links the field component to the JSX. {...field.input} is an object that contains some event handlers and props on change on blur the value ... allows us to pass all the functionality to the input
 
 // onSubmit={} redux form does not post data.
+//handleSubmit runs redux form validation then if form is valid call the callback onsubmit takes a function that we define. which gets the values. we bind this because onsubmit is passed as callback in a diffrent scope.
+
+// 3 form states Pristine Touched Invalid
+
+//Pristine: default rendering state on page load
+
+//touched: means a user has focused in and out of input
+
+//Invalid: we got some error and need to show a message
