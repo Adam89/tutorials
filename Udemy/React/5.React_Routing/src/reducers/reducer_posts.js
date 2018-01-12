@@ -1,18 +1,18 @@
 import _ from 'lodash'
-import { FETCH_POSTS } from '../actions/fetch_post';
-import { CREATE_POST } from '../actions/fetch_post';
-
-
+import { FETCH_POSTS, FETCH_POST } from '../actions/fetch_post';
+// add to app level state
 export default function(state = {} , action) { // export previous state and new action default state is object
     switch (action.type) {
         case FETCH_POSTS:
         return _.mapKeys(action.payload.data, 'id'); // fetch initial list of posts transform array of objects into individual objects
-        case CREATE_POST:
-        return 
+        case FETCH_POST:
+        // we get an object we need to add to the already established state
+         // comibine exsiting state with our new object new key value paird where the key is the id and value is the post we want to fetch // take new state add id and set equal to post then return new state
+            return  { ...state,[action.payload.data.id]: action.payload.data}; //es6 way of doing key value pairs and mergins with exsiting state object
         default:
             return state;
     }
-}
+};
 
 
 // reducer will produce the post piece of state reducer will return the object with the kye as post ID and the corresponding post as a value
@@ -37,3 +37,12 @@ const posts = [
         "3":{"id":3,"title":"no"}
     }
   */
+
+// const post = action.payload.data;
+// const newState = { ...state };
+// // we get an object we need to add to the already established state
+// // comibine exsiting state with our new object new key value paird where the key is the id and value is the post we want to fetch
+// newState[post.id] = post; // take new state add id and set equal to post then return new state
+// return {
+//     newState
+// };
