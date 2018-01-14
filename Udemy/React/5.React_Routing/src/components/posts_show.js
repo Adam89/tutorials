@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { fetchPost } from '../actions/fetch_post';
 class PostsShow extends Component {
     componentDidMount() {
-        const { id } = this.props.match.params.id; // give me url id
+        const { id } = this.props.match.params; // give me url id
+        console.log(id);
         this.props.fetchPost(id); // take post out of app state and into component mapStateToProps
     }
     render() {

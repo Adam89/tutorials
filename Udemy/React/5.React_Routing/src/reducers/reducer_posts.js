@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import { FETCH_POSTS, FETCH_POST } from '../actions/fetch_post';
+import { FETCH_POSTS } from '../actions/fetch_post';
+import { FETCH_POST } from '../actions/fetch_post';
 // add to app level state
 export default function(state = {} , action) { // export previous state and new action default state is object
     switch (action.type) {
@@ -8,7 +9,7 @@ export default function(state = {} , action) { // export previous state and new 
         case FETCH_POST:
         // we get an object we need to add to the already established state
          // comibine exsiting state with our new object new key value paird where the key is the id and value is the post we want to fetch // take new state add id and set equal to post then return new state
-            return  { ...state,[action.payload.data.id]: action.payload.data}; //es6 way of doing key value pairs and mergins with exsiting state object
+            return  { ...state, [action.payload.data.id]: action.payload.data}; //es6 way of doing key value pairs and mergins with exsiting state object
         default:
             return state;
     }
