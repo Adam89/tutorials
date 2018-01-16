@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPost } from '../actions/fetch_post';
+import { fetchPost, deletePost } from '../actions/fetch_post';
+import { Link } from 'react-router-dom';
 class PostsShow extends Component {
     componentDidMount() {
         const { id } = this.props.match.params; // give me url id
         console.log(id);
         this.props.fetchPost(id); // take post out of app state and into component mapStateToProps
+    }
+
+    onDeleteClick() { // need to call action creater to delete post from backend db
+        const { id } = this.props.match.params;
+        this.props.deletePost(id, () => {
+            this.props.history.push('/'); // programatic navigation
+        });
     }
     render() {
         //posts[this.props.match.params.id]; relies on big posts object;
@@ -16,6 +24,10 @@ class PostsShow extends Component {
         }
         return(
             <div>
+                <Link to="/" className="btn btn-primary">Home</Link>
+                <button className="btn btn-danger pull-xs-right" onClick={this.onDeleteClick.bind(this)}>
+                    Delete post
+                </button>
                 <h3>{post.title}</h3>
                 <h6>Categories: {post.categories}</h6>
                 <p>{post.content}</p>
@@ -31,7 +43,7 @@ function mapStateToProps({ posts }, ownProps) { // give me list of post
      //you can use mapStateToProps to work out the state before it reaches the component
 }
 
-export default connect(mapStateToProps, { fetchPost })(PostsShow);
+export default connect(mapStateToProps, { fetchPost, deletePost })(PostsShow);
 
 // posts show needs to be responsible for fetching its own data as its showing specific post
 

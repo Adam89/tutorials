@@ -13,7 +13,9 @@ class PostsIndex extends Component {
        return  _.map(this.props.posts, post => { // first arg is the list of objects second arg is the return you want rendered as a function
            return (
                <li className="list-group-item" key={post.id}>
+               <Link to={`posts/${post.id}`}>
                 {post.title}
+                </Link>
                </li>
            )
        })

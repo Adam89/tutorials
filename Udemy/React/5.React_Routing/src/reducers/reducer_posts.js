@@ -1,9 +1,11 @@
 import _ from 'lodash'
-import { FETCH_POSTS } from '../actions/fetch_post';
-import { FETCH_POST } from '../actions/fetch_post';
+import { FETCH_POSTS, DELETE_POST, FETCH_POST } from '../actions/fetch_post';
+
 // add to app level state
 export default function(state = {} , action) { // export previous state and new action default state is object
     switch (action.type) {
+        case DELETE_POST: 
+        return _.omit(state, action.payload); // look at state if state has key of post id omit it from obect and return new state object  
         case FETCH_POSTS:
         return _.mapKeys(action.payload.data, 'id'); // fetch initial list of posts transform array of objects into individual objects
         case FETCH_POST:
