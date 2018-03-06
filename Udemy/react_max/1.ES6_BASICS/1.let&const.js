@@ -123,11 +123,30 @@ Destructuring
 Easily extract array elements or object properties and store them in variables
 Allows us to pull out single elments and properties and store them in variables for array or objects,
 
+Array Destructuring
 [a,b] = ['Hello', 'Adam']
 console.log(a) // Hello
 console.log(b) // Adam
 
+Object Destructuring needs to be in order of property name
 {name} = {name: 'Adam', age:28 }
 console.log(name) // Adam
 console.log(age) // Undefined
+
+-------------------------------------------------------------------------
+Primitives and reference
+-------------------------------------------------------------------------
+const number = 1; // primitive
+const num2 = number // makes copy
+
+when you reassign a number string or boolean to a new variable it always makes a copy
+
+objects are references type so if y
+
+const person {
+    name: 'adam'
+};
+
+const secondPerson = person; Person stored in memory and second person is a pointer to that place in memory however this can be mutable so need to copy stuff in immutable ways using ... spread operator
+
 */
