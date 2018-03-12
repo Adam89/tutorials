@@ -11,23 +11,41 @@ class App extends Component {
     ]
   }
 
-  switchNameHandler = () => {
+  switchNameHandler = (newName) => {
     //console.log('was clicked');
     this.setState({persons: [
-      {name: 'JAUUUA', age: 28},
+      { name: newName, age: 28},
       {name: 'Kelly', age: 28},
       {name: 'Tom', age: 40}
     ]})
+  }
+
+  nameChangeHandler = (event) => {
+    this.setState({
+      persons: [
+        { name: 'Adam', age: 28 },
+        { name: event.target.value, age: 28 },
+        { name: 'Tom', age: 40 }
+      ]
+    })
   }
 
   render() {
     return (
       <div className="App">
        <h1>Hi, This is a React App built by Adam</h1>
-       <button onClick={this.switchNameHandler}>Switch Name</button>
-       <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>& My Hobbie is making Adam Laugh </Person>
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+       <button onClick={() => this.switchNameHandler('Adam!!!')}>Switch Name</button>
+       <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}/>
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler.bind(this, 'Roo Roo! ')}
+          changed={this.nameChangeHandler}>& My Hobbie is making Adam Laugh</Person>
+        <Person
+          name={this.state.persons[2].name}
+          age={this.state.persons[2].age}/>
       </div>
     );
   }
@@ -43,8 +61,16 @@ export default App;
 
 // if state changes it re renders / update the dom
 
-// assigned switchNameHandler property to a function passed as reference 
+// assigned switchNameHandler property to a function passed as reference
 
 // never mutate state use this.setState it takes an object as an argument looks at new state and old state and only re renders difference this includes props changing too
 
 // functional components don't manipulate the state this is good. try to use them as much as possible
+
+// pass refrence to function as props on the component
+
+// you can pass methods to props for any compoent from parent downawards unilateral flow. Childs can change data in the parent.
+
+// this reference state or function and bind reference the class component
+
+// use bind syntax if you can passing arrow functions onclick can be inefficent.
