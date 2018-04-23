@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
+import Radium from 'radium';
 import './App.css';
+import { StyleRoot } from 'radium/lib';
 
 class App extends Component {
   state = {
@@ -44,11 +46,12 @@ class App extends Component {
   render() { // used when you extend the component object
 
     const style = { // inline scoped styles
-      backgroundColor: 'white',
+      backgroundColor: 'green',
       font: 'inherit',
       border: '1px solid blue',
       padding:'8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      color: 'white',
     };
 
     let persons = null; // more elegant way of conditional statments
@@ -65,11 +68,22 @@ class App extends Component {
                     changed={(event,) => this.nameChangeHandler(event, person.id)}/>
           })}
         </div>
-      )
+      );
+      style.backgroundColor= 'red' // change style value above dynamic styling
+      
     }
+
+    const classes = []; // array of strings with space always pass stings
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
+    } 
     return (
       <div className="App">
        <h1>Hi, This is a React App built by Adam</h1>
+       <p className={classes.join(' ')}>This is really working</p>
        <button
           style={style}
           onClick={this.togglePersonHandler}>Toggle Person
@@ -88,14 +102,14 @@ class App extends Component {
           age={this.state.persons[2].age}/>
         </div> : null */}
         {persons}
-       
       </div>
+
     );
   }
 }
 
 
-export default App;
+export default App; // allows parseing of extra css features
 
 
 // class has properties like a variable of a class
