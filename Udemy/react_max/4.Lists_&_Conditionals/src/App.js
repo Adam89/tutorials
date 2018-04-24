@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
+import classes from './App.css';
 import Person from './Person/Person';
-import Radium from 'radium';
-import './App.css';
-import { StyleRoot } from 'radium/lib';
 
 class App extends Component {
   state = {
@@ -45,17 +43,10 @@ class App extends Component {
 
   render() { // used when you extend the component object
 
-    const style = { // inline scoped styles
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding:'8px',
-      cursor: 'pointer',
-      color: 'white',
-    };
+
 
     let persons = null; // more elegant way of conditional statments
-
+    let btnClass = " "
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -69,23 +60,22 @@ class App extends Component {
           })}
         </div>
       );
-      style.backgroundColor= 'red' // change style value above dynamic styling
-      
+      btnClass = classes.Red
     }
 
-    const classes = []; // array of strings with space always pass stings
+    const assignedClasses = []; // array of strings with space always pass stings
     if (this.state.persons.length <= 2) {
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     } 
     return (
-      <div className="App">
+      <div className={classes.App}>
        <h1>Hi, This is a React App built by Adam</h1>
-       <p className={classes.join(' ')}>This is really working</p>
+        <p className={assignedClasses.join(' ')}>This is really working</p>
        <button
-          style={style}
+          className={btnClass}
           onClick={this.togglePersonHandler}>Toggle Person
        </button>
        {/* { this.state.showPersons ? <div>
