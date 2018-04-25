@@ -42,15 +42,12 @@ class App extends Component {
   }
 
   render() { // used when you extend the component object
-
-
-
     let persons = null; // more elegant way of conditional statments
     let btnClass = " "
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map((person, index) => { // index is parameter on map
+          {this.state.persons.map((person, index) => { // index is parameter on map key has to be on outer
             return <Person 
                     name={person.name}
                     age={person.age}
