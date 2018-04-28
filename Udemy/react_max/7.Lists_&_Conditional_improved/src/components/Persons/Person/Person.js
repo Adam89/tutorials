@@ -12,6 +12,6 @@ const person  = (props) => { // es6 functional component
     )
 }
 
-export default person // export the default need to wrap in style root
+export default person; // export the default need to wrap in style root
 
 // React gives us to to props.children which it refers to any elements between opening and closing tag.

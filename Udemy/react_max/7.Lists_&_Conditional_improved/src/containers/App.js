@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
-
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 class App extends Component {
   state = {
     persons: [
@@ -46,51 +46,22 @@ class App extends Component {
 
 
     let persons = null; // more elegant way of conditional statments
-    let btnClass = " "
     if (this.state.showPersons) {
-      persons = (
-        <div>
-          {this.state.persons.map((person, index) => { // index is parameter on map key has to be on outer
-            return <Person 
-                    name={person.name}
-                    age={person.age}
-                    key={person.id}
-                    click={() => this.deletePersonHandler(index)}
-                    changed={(event,) => this.nameChangeHandler(event, person.id)}/>
-          })}
-        </div>
-      );
-      btnClass = classes.Red
+      persons =
+        <Persons 
+        persons={this.state.persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangeHandler} />
     }
 
-    const assignedClasses = []; // array of strings with space always pass stings
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold);
-    } 
+
     return (
       <div className={classes.App}>
-       <h1>Hi, This is a React App built by Adam</h1>
-        <p className={assignedClasses.join(' ')}>This is really working</p>
-       <button
-          className={btnClass}
-          onClick={this.togglePersonHandler}>Toggle Person
-       </button>
-       {/* { this.state.showPersons ? <div>
-       <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}/>
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Roo Roo! ')}
-          changed={this.nameChangeHandler}>& My Hobbie is making Adam Laugh</Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}/>
-        </div> : null */}
+      <Cockpit 
+      appTitle={this.props.title}
+      showPersons={this.state.showPersons}
+      persons={this.state.persons}
+      clicked={this.togglePersonHandler}/>
         {persons}
       </div>
 
@@ -121,3 +92,8 @@ export default App; // allows parseing of extra css features
 // this reference state or function and bind reference the class component
 
 // use bind syntax if you can passing arrow functions onclick can be inefficent.
+
+// containers manage state thats where state management should live.
+
+// clear focus on structure granular components narrowley minded
+// this.props inside class based compoent
