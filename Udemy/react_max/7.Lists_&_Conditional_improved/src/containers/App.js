@@ -2,7 +2,21 @@ import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+
 class App extends Component {
+    constructor(props) { // only constructor gets props
+      super(props);
+      console.log('app.js_inside_constructor_1', props);
+
+      // you can initaliase state inside constructor using this.state = {persons: []}
+    }
+
+    componentWillMount() {
+      console.log('App_js_inside_componentWillMount_2')
+    }
+    componentDidMount() {
+      console.log('app_js_inside_componentDidMount_4')
+    }
   state = {
     persons: [
       {id: 1, name: 'Adam', age: 28},
@@ -42,7 +56,7 @@ class App extends Component {
   }
 
   render() { // used when you extend the component object
-
+    console.log('app_js_insideRender_3')
 
 
     let persons = null; // more elegant way of conditional statments
