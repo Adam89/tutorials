@@ -1,19 +1,31 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'// should component update build in
 import Person from './Person/Person';
 
-class Persons extends Component {
+class Persons extends PureComponent {
         constructor(props) { // only constructor gets props
                 super(props);
                 console.log('Person.js_inside_constructor_1', props);
 
                 // you can initaliase state inside constructor using this.state = {persons: []}
         }
-
         componentWillMount() {
                 console.log('Person_js_inside_componentWillMount_2')
         }
         componentDidMount() {
                 console.log('Person_js_inside_componentDidMount_4')
+        }
+        componentWillReceiveProps(nextProps) {
+                console.log('[Update Persons.JS] inside componet will recieve props', nextProps);
+        }
+        // shouldComponentUpdate(nextProps, nextState) { // RETURNS TRUE OR FALSE TRUE RUNS CODE FALSE DOES NOT
+        //         console.log('[Update Persons.JS] inside componet shouldComponentUpdate', nextProps, nextState);
+        //         return nextProps.persons !== this.props.persons || nextProps.changed !== this.props.changed || nextProps.clicked !== this.props.clicked; // only checks against new object as we slice state
+        // }
+        componentWillUpdate(nextProps, nextState) {
+                console.log('[Update Persons.JS] inside componet componentWillUpdate', nextProps, nextState);
+        }
+        componentDidUpdate() { // ONLY THIS PROPS THIS STATE B=
+                console.log('[Update Persons.JS] inside componet componentDidUpdate')
         }
         render() {
                 console.log('Person_js_insideRender_3')

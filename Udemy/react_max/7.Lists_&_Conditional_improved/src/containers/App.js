@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
-class App extends Component {
+class App extends PureComponent {
     constructor(props) { // only constructor gets props
       super(props);
       console.log('app.js_inside_constructor_1', props);
@@ -17,6 +17,16 @@ class App extends Component {
     componentDidMount() {
       console.log('app_js_inside_componentDidMount_4')
     }
+  //   shouldComponentUpdate(nextProps, nextState) { // RETURNS TRUE OR FALSE TRUE RUNS CODE FALSE DOES NOT
+  //   console.log('[Update App.js] inside componet shouldComponentUpdate', nextProps, nextState);
+  //   return nextState.persons !== this.state.persons || nextState.showPersons !== this.state.showPersons; // only checks against new object as we slice state
+  // }
+  componentWillUpdate(nextProps, nextState) {
+    console.log('[Update App.js] inside componet componentWillUpdate', nextProps, nextState);
+  }
+  componentDidUpdate() { // ONLY THIS PROPS THIS STATE B=
+    console.log('[Update App.js] inside componet componentDidUpdate')
+  }
   state = {
     persons: [
       {id: 1, name: 'Adam', age: 28},
@@ -71,6 +81,7 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
+      <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
       <Cockpit 
       appTitle={this.props.title}
       showPersons={this.state.showPersons}
