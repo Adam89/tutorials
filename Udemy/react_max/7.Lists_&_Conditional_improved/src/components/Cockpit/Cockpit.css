@@ -1,30 +1,30 @@
 .red {
-    color:red;
-  }
-  .bold {
-    font-weight:bold;
-  }
-  
-  .Cockpit button {
-        background-color: green;
-        font: inherit;
-        border: 1px solid blue;
-        padding:8px;
-        cursor: pointer;
-        color: white;
-  }
-  
-  .Cockpit button.Red {
-    background-color: red;
-    color:white;
-  }
-  
-  .Cockpit button:hover {
-    background-color: orange;
-    color:black;
-  }
-  
-  .Cockpit button.Red:hover {
-    background-color: salmon;
-    color:blue;
-  }
+  color: red;
+}
+.bold {
+  font-weight: bold;
+}
+
+.Button {
+  background-color: green;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  color: white;
+}
+
+.Button.Red {
+  background-color: red;
+  color: white;
+}
+
+.Button:hover {
+  background-color: orange;
+  color: black;
+}
+
+.Button.Red:hover {
+  background-color: salmon;
+  color: blue;
+}
