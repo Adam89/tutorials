@@ -41,7 +41,8 @@ class App extends PureComponent {
       { id: 2, name: "Kelly", age: 28 },
       { id: 3, name: "Tom", age: 40 }
     ],
-    showPersons: false
+    showPersons: false,
+    toggleClicked: 0
   };
 
   deletePersonHandler = personIndex => {
@@ -69,7 +70,8 @@ class App extends PureComponent {
   togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({
-      showPersons: !doesShow // show person is equal what does show is not and merges only that piece of state
+      showPersons: !doesShow, // show person is equal what does show is not and merges only that piece of state
+      toggleClicked: this.state.toggleClicked + 1
     });
   };
 
