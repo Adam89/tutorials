@@ -5,6 +5,8 @@ import Cockpit from "../components/Cockpit/Cockpit";
 import withClassTwo from '../hoc/WithClassTwo';
 import Aux from '../hoc/Aux';
 
+export const AuthContext = React.createContext(false) // provide and consume
+
 class App extends PureComponent {
   constructor(props) {
     // only constructor gets props
@@ -14,7 +16,7 @@ class App extends PureComponent {
     // you can initaliase state inside constructor using this.state = {persons: []}
   }
 
-  componentWillMount() {
+  componentWillMount() { //deprecated
     console.log("App_js_inside_componentWillMount_2");
   }
   componentDidMount() {
@@ -24,12 +26,25 @@ class App extends PureComponent {
   //   console.log('[Update App.js] inside componet shouldComponentUpdate', nextProps, nextState);
   //   return nextState.persons !== this.state.persons || nextState.showPersons !== this.state.showPersons; // only checks against new object as we slice state
   // }
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate(nextProps, nextState) { //deprecated
     console.log(
       "[Update App.js] inside componet componentWillUpdate",
       nextProps,
       nextState
     );
+  }
+  static getDerivedStateFromProps(nextProps, prevState) { // executed when props updated the state with them you 
+    console.log(
+      "[Update App.js] inside componet getDerivedStateFromProps",
+      nextProps,
+      prevState
+    );
+    return prevState // you could return new state object after changing props
+
+  }
+
+  getSnapshotBeforeUpdate() { // get snapshot of dom before it updates
+    console.log("[Update App.js] inside component getSnapshoptBeforeUpdate");
   }
   componentDidUpdate() {
     // ONLY THIS PROPS THIS STATE B=
@@ -42,7 +57,8 @@ class App extends PureComponent {
       { id: 3, name: "Tom", age: 40 }
     ],
     showPersons: false,
-    toggleClicked: 0
+    toggleClicked: 0,
+    autheticated: false
   };
 
   deletePersonHandler = personIndex => {
@@ -69,11 +85,17 @@ class App extends PureComponent {
 
   togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({
-      showPersons: !doesShow, // show person is equal what does show is not and merges only that piece of state
-      toggleClicked: this.state.toggleClicked + 1
+    this.setState((prevState, props) => { // async call so not sure if this.state is accurate thats why you wrapp in a function with return prev state can't be mutated anywhere else
+      return {
+        showPersons: !doesShow, // show person is equal what does show is not and merges only that piece of state
+        toggleClicked: prevState.toggleClicked + 1 // best way to mutate state 
+      }
     });
   };
+
+  loginHandler = () => {
+    this.setState({ autheticated: true });
+  }
 
   render() {
     // used when you extend the component object
@@ -104,9 +126,10 @@ class App extends PureComponent {
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonHandler}
+          login={this.loginHandler}
         />
-        {persons}
-        </Aux>
+        <AuthContext.Provider value={this.state.autheticated}>{persons}</AuthContext.Provider>
+      </Aux>
     );
   }
 }

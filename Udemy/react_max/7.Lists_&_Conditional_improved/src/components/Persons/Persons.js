@@ -5,7 +5,7 @@ class Persons extends PureComponent {
         constructor(props) { // only constructor gets props
                 super(props);
                 console.log('Person.js_inside_constructor_1', props);
-
+                this.lastPersonRef = React.createRef();
                 // you can initaliase state inside constructor using this.state = {persons: []}
         }
         componentWillMount() {
@@ -13,6 +13,7 @@ class Persons extends PureComponent {
         }
         componentDidMount() {
                 console.log('Person_js_inside_componentDidMount_4')
+                this.lastPersonRef.current.focus();
         }
         componentWillReceiveProps(nextProps) {
                 console.log('[Update Persons.JS] inside componet will recieve props', nextProps);
@@ -32,8 +33,10 @@ class Persons extends PureComponent {
                 return this.props.persons.map((person, index) => { // index is parameter on map key has to be on outer
                         return <Person
                                 name={person.name}
+                                position={index}
                                 age={person.age}
                                 key={person.id}
+                                ref={this.lastPersonRef}
                                 click={() => this.props.clicked(index)}
                                 changed={(event) => this.props.changed(event, person.id)} />
                 }); // If its it in one line you can omit the return statment
