@@ -9,13 +9,12 @@ const burger = (props) => {
 			return <BurgerIngredient key={igKey + index} type={igKey} />
 		});
 	})
-		.reduce((arr, el) => {// allows us to transform array into something else takes function and recueves to args prev val and curr val. Takes empty array as default args
+		.reduce((arr, el) => {// allows us to transform array into something else takes function and recueves two args prev val and curr val. Takes empty array as default args
 		return arr.concat(el);
 	}, []); 
 	if (transformedIngredients.length === 0) {
 		transformedIngredients = <p>Please start adding ingredients</p>
 	}
-	console.log(transformedIngredients)
     return (
         <div className={Classes.Burger}>
             <BurgerIngredient type="bread-top"/>
