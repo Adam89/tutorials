@@ -15,7 +15,7 @@ class Persons extends PureComponent {
                 console.log('Person_js_inside_componentDidMount_4')
                 this.lastPersonRef.current.focus();
         }
-        componentWillReceiveProps(nextProps) {
+        componentWillReceiveProps(nextProps) { //deprecated
                 console.log('[Update Persons.JS] inside componet will recieve props', nextProps);
         }
         // shouldComponentUpdate(nextProps, nextState) { // RETURNS TRUE OR FALSE TRUE RUNS CODE FALSE DOES NOT
