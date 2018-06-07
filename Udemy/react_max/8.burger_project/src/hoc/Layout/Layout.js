@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import Aux from '../../hoc/Aux';
-import Toolbar from '../Navigation/Toolbar/Toolbar';
+import Aux from '../Aux/Aux';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import classes from './Layout.css';
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
-class Layout extends Component { //use layout componet as wrapper around core content component we want rendered on screen
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+class Layout extends Component { //use layout component as wrapper around core content component we want rendered on screen
 	state = {
 		showSideDrawer: false
 	}
@@ -36,4 +36,7 @@ class Layout extends Component { //use layout componet as wrapper around core co
 
 
 export default Layout;
+
+
+// Layout is a HOC as it's the wrapper for other components
 
