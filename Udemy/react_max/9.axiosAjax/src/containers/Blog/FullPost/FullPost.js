@@ -8,13 +8,14 @@ class FullPost extends Component {
         loadedPost: null
     }
 
-    componentDidUpdate() { // want to fetch data whenever we receive new props
-        if (this.props.id) {
+    componentDidMount() { // want to fetch data whenever we receive new props
+      console.log(this.props);
+        if (this.props.match.params.id) { // passed with react router
             if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) { // makes only 1 http request stops infinite loops
               axios
                 .get(
                   "/posts/" +
-                    this.props.id
+                this.props.match.params.id
                 )
                 .then(response => {
                   // console.log(response);
