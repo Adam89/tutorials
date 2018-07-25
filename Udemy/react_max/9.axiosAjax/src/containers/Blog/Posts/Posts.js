@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from "../../../axios";
 import Post from '../../../components/Post/Post';
+import { Route } from "react-router-dom";
+import fullPost from "../FullPost/FullPost";
 import './Posts.css';
 
 class Posts extends Component {
@@ -28,7 +30,7 @@ class Posts extends Component {
 			});
 	}
   postSelectedHandler = (id) => { //Navigating Programmatically
-		this.props.history.push({pathname: '/' + id})
+		this.props.history.push('/posts/' + id)
 	}
 	render() {
 		let posts = <p style={{ textAlign: 'center' }}>Something went wrong </p>
@@ -44,11 +46,12 @@ class Posts extends Component {
            // </Link>
         );
 			})
-			return (
-				<section className="Posts">
-					{posts}
-				</section>
-			);
+      return (
+      <div>
+        <section className="Posts">{posts}</section>
+          <Route path={this.props.match.url + '/:id' } exact component={fullPost} /> {/* Handles dynamic ID and loads posts path first*/}
+      </div>
+      );
 		}
 	}
 }
