@@ -33,6 +33,7 @@ class FullPost extends Component {
     }
     
     render () {
+      console.log('hello')
         let post = <p style={{textAlign:'center'}}>Please select a Post!</p>;
         if (this.props.id) {
             post = <p style={{ textAlign: 'center' }}>Loading</p>;
@@ -48,7 +49,6 @@ class FullPost extends Component {
                     <button className="Delete" onClick={this.deletePostHandler}>Delete</button>
                 </div>
             </div>
-
         );
     }
         return post;

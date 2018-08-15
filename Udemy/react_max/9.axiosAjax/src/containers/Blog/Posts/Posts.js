@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from "../../../axios";
-import Post from '../../../components/Post/Post';
 import { Route } from "react-router-dom";
-import fullPost from "../FullPost/FullPost";
+import Post from '../../../components/Post/Post';
+import FullPost from "../FullPost/FullPost";
 import './Posts.css';
 
 class Posts extends Component {
@@ -30,12 +30,15 @@ class Posts extends Component {
 			});
 	}
   postSelectedHandler = (id) => { //Navigating Programmatically
-		this.props.history.push('/posts/' + id)
+		this.props.history.push( '/posts/' + id );
 	}
 	render() {
+    console.log('post');
 		let posts = <p style={{ textAlign: 'center' }}>Something went wrong </p>
 		if (!this.state.error) {
+      console.log(this.state.posts);
 			posts = this.state.posts.map(post => {
+        console.log(post,'postpost');
 				return (
           //<Link to={'/' + post.id} >
             <Post
@@ -45,15 +48,19 @@ class Posts extends Component {
               clicked={() => this.postSelectedHandler(post.id)} />
            // </Link>
         );
-			})
-      return (
+      });
+    }
+    console.log(this.props.match.url)
+      return ( 
       <div>
-        <section className="Posts">{posts}</section>
-          <Route path={this.props.match.url + '/:id' } exact component={fullPost} /> {/* Handles dynamic ID and loads posts path first*/}
+        <section className="Posts">
+          {posts}
+        </section>
+        <Route path={this.props.match.url + '/:id'} exact component={FullPost} /> {/* Handles dynamic ID and loads posts path first*/}
       </div>
       );
 		}
 	}
-}
+
 
 export default Posts;
