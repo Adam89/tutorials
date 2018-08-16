@@ -48,7 +48,7 @@ class Blog extends Component {
 					{/* First path thats a match will be rendered */}
 					{authenticated}
 					<Route path="/posts" component={Posts} />
-					{/* <Redirect from="/" to="/posts" /> */}
+					{/* <Redirect from="/" to="/posts" /> renders error page catch all routes */}
 					<Route render={ErrorPage} />
 					{/* <Route path="/" component={Posts} /> */}
 				</Switch>
