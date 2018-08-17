@@ -3,16 +3,19 @@ import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import './Blog.css';
 import Posts from './Posts/Posts';
 import ErrorPage from '../../components/ErrorPage/ErrorPage';
-import NewPost from './NewPost/NewPost';
+import asyncComponent from '../../hoc/asyncComponent'; //lazy loading routes
+//import NewPost from './NewPost/NewPost';
+
+const asyncNewPost = asyncComponent(() => import('./NewPost/NewPost')); // import keyword as function whatever is passed only imported when function is executed and its executed when we render asyncNewPost to the screen
 
 class Blog extends Component {
 	state = {
-		auth: false,
+		auth: true,
 	};
 	render() {
 		let authenticated = null;
 		if (this.state.auth) {
-			authenticated = <Route path="/new-post" component={NewPost} />; // this is a guard
+			authenticated = <Route path="/new-post" component={asyncNewPost} />; // this is a guard
 		}
 		return (
 			<div className="Blog">
