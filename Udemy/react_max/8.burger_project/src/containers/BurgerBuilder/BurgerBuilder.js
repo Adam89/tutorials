@@ -26,6 +26,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
+      console.log(this.props);
         axios.get('https://my-burget-52cc0.firebaseio.com/ingredients.json')
         .then(response => {
             this.setState({ingredients: response.data});
@@ -86,29 +87,30 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        this.setState({loading: true});
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Adam',
-                address: {
-                    street: 'testStreet',
-                    postCode: 'n22 6bp',
-                    country: 'United Kingdom'
-                },
-                email: 'adamhopkins87@gmail.com'
-            },
-            deliveryMethod: 'fast'
-        }
+      this.props.history.push('/checkout');
+        // this.setState({loading: true});
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Adam',
+        //         address: {
+        //             street: 'testStreet',
+        //             postCode: 'n22 6bp',
+        //             country: 'United Kingdom'
+        //         },
+        //         email: 'adamhopkins87@gmail.com'
+        //     },
+        //     deliveryMethod: 'fast'
+        // }
 
-        axios.post('/orders.json', order)  // .json for firebase
-            .then(response => {
-                this.setState({ loading: false, purchasing: false });
-            })
-            .catch(error => {
-                this.setState({ loading: false, purchasing: false });
-            });
+        // axios.post('/orders.json', order)  // .json for firebase
+        //     .then(response => {
+        //         this.setState({ loading: false, purchasing: false });
+        //     })
+        //     .catch(error => {
+        //         this.setState({ loading: false, purchasing: false });
+        //     });
     }
     render () {
         const disiabledInfo = {
