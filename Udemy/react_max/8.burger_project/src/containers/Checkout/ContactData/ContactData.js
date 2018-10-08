@@ -7,12 +7,6 @@ import classes from './ContactData.css';
 class ContactData extends Component {
 
   state = {
-    // name: '',
-    // email: '',
-    // address: {
-    //   street: '',
-    //   postalCode: ''
-    // },
     orderForm: {
       name: {
         elementType: 'input',
@@ -64,11 +58,6 @@ class ContactData extends Component {
         },
         value: ''
       },
-      // street: 'testStreet',
-      // postCode: 'n22 6bp',
-      // country: 'United Kingdom',
-      // email: 'adamhopkins87@gmail.com',
-      // deliveryMethod: 'fast'
     },
     loading: false
   }
