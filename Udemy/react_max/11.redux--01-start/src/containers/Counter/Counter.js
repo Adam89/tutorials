@@ -13,6 +13,15 @@ class Counter extends Component {
                 <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
                 <CounterControl label="Add 10" clicked={this.props.onAddCounter}  />
                 <CounterControl label="Subtract 15" clicked={this.props.onSubtractCounter}  />
+                <hr />
+                <button onClick={this.props.onStoreResult}>Store Result</button>
+                <ul>
+                {this.props.storedResults.map(strResult => (
+                  <li 
+                  key={strResult.id} 
+                  onClick={() => this.props.onDeleteResult(strResult.id)}>{strResult.value}
+                </li>))}
+                </ul>
             </div>
         );
     }
@@ -20,7 +29,8 @@ class Counter extends Component {
 
 const mapStateToProps =  state => {
   return {
-    ctr: state.counter
+    ctr: state.counter,
+    storedResults: state.results
   }
 }  // state managed to redux is mapped to the props expect redux state as input and returns JS object map prop names and slices of state stored in redux
 
@@ -29,7 +39,9 @@ const mapDispatchToProps = dispatch => {
     onIncrementCounter: () => dispatch({type: 'INCREMENT'}), // dispatch action call using this.props
     onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
     onAddCounter: () => dispatch({type: 'ADD', payload: { val : 10}}),
-    onSubtractCounter: () => dispatch({type: 'SUBTRACT', payload: { val : 15}})
+    onSubtractCounter: () => dispatch({type: 'SUBTRACT', payload: { val : 15}}),
+    onStoreResult: () => dispatch({type: 'STORE_RESULT'}),
+    onDeleteResult: (id) => dispatch({type: 'ON_DELETE_RESULT', payload: { resultEleId: id }})
   };
 } // which actions do i want to dispatch in this container stores a func which recieves the dispacth func as an arg return JS Obj which has prop names hold ref to func which gets executed
 
