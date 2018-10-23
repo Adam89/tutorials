@@ -10,6 +10,15 @@ REDUCERS these take the action and then update the store. You generally have one
 
 REDUCERS are a function that get two arg the old state and the action function returns the updated state
 
+All actions get funneled through one reducers redux provide utitlity functionailty that allows us to split reducers.
+
+combineReducers function from redux package that takes JS object mapping our reducers to slices of the state and mergin everything together one state on reducer.
+
+REDUX adds one level on nesting on combine reducers to stop naming conflicts using keys defined in combine reducers object. state.ctr.counter in containers
+
+Reducers don't have acess to global state so should always recieve them as payload
+
+
 Store triggers all subscriptions when all state is updated in the store a subscription modal. Components can subscribe store updates and get notified when state changes. This is a redux flow.
 
 STORE needs to be initialized with a reducer. We only have one reducer its strongly connected to the store it's the only thing that updates the state. Thats why it has to be passed to createStore
