@@ -15,8 +15,6 @@ const { ADD_INGREDIENT, REMOVE_INGREDIENT } = actionTypes;
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: null,
-    purchaseable: false,
     purchasing: false,
     loading: false,
     error: null
@@ -41,7 +39,7 @@ class BurgerBuilder extends Component {
         // callback executed
         return sum + el;
       }, 0); // turn into sum of all ingredients sum starts at 0
-    this.setState({ purchasable: sum > 0 });
+    return sum > 0; // returns boolean
   }
 
 
@@ -53,22 +51,10 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: false });
   };
 
-  purchaseContinueHandler = () => {
-    const queryParams = []; // will eventually contain ingredients
-    for (let i in this.state.ingredients) {
-      queryParams.push(
-        encodeURIComponent(i) +
-          "=" +
-          encodeURIComponent(this.state.ingredients[i])
-      ); // allows us to construct ingredients object ready to append to url
-    }
-    queryParams.push("price=" + this.state.totalPrice);
-    const queryString = queryParams.join("&");
-    this.props.history.push({
-      pathname: "/checkout",
-      search: "?" + queryString
-    });
-  };
+   purchaseContinueHandler = () => {
+     this.props.history.push('/checkout');
+   };
+   
   render() {
     const disiabledInfo = {
       ...this.props.ings
@@ -88,7 +74,7 @@ class BurgerBuilder extends Component {
             disabled={disiabledInfo}
             price={this.props.price}
             ordered={this.purchaseHandler}
-            purchasable={this.state.purchasable}
+            purchasable={this.updatePurchaseState(this.props.ings)}
           />
         </Aux>
       );

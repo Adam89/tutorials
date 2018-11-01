@@ -4,6 +4,7 @@ import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './ContactData.css';
+import { connect } from 'react-redux';
 class ContactData extends Component {
 
   state = {
@@ -99,15 +100,15 @@ class ContactData extends Component {
 
   orderHandler = (event) => {
     event.preventDefault();
-    console.log(this.props.ingredients)
+    console.log(this.props.ings)
     this.setState({ loading: true });
     const formData = {}; // loop through form and grab key and just value
     for (let formElementIdentifer in this.state.orderForm) { // pumps out all the keys and values
       formData[formElementIdentifer] = this.state.orderForm[formElementIdentifer].value
     }
     const order = {
-      ingredients: this.props.ingredients,
-      price: this.props.totalPrice,
+      ingredients: this.props.ings,
+      price: this.props.price,
       orderData: formData
     }
 
@@ -193,4 +194,11 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+  return {
+    ings: state.ingredients.ingredients,
+    price: state.ingredients.totalPrice
+  }
+}
+
+export default connect(mapStateToProps)(ContactData);
