@@ -29,5 +29,8 @@ STORE initial creation should generally happen in index js
 
 SUBSCRIBE takes an argument which is a function which is executed whenever the state is updated or whenever an action reaches the reducer trigged whenever action is dispatched
 
+Middleware is term used for functions or code hooks into a code flow process and gets executed as part of the process.
+
+action > middleware > reducer
 
 */
