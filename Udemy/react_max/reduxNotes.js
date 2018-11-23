@@ -12,6 +12,8 @@ REDUCERS are a function that get two arg the old state and the action function r
 
 All actions get funneled through one reducers redux provide utitlity functionailty that allows us to split reducers.
 
+action creators are functions that return actions
+
 combineReducers function from redux package that takes JS object mapping our reducers to slices of the state and mergin everything together one state on reducer.
 
 REDUX adds one level on nesting on combine reducers to stop naming conflicts using keys defined in combine reducers object. state.ctr.counter in containers
@@ -32,5 +34,7 @@ SUBSCRIBE takes an argument which is a function which is executed whenever the s
 Middleware is term used for functions or code hooks into a code flow process and gets executed as part of the process.
 
 action > middleware > reducer
+
+redux thunk middlewar library to return a function which will eventually dispatch an action
 
 */
