@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions'; // import everything from actions and store inside object
+import * as actionTypes from '../actions/actions'; // import everything from actions and store inside object
 
 const initialState = {
   counter: 0,
@@ -17,10 +17,10 @@ const counterReducer = (state = initialState, action) => {
       newState.counter = state.counter - 1;
       return newState;
     case SUBTRACT:
-      newState.counter = state.counter - action.payload.val;
+      newState.counter = state.counter - action.payload;
       return newState;
     case ADD:
-      newState.counter = state.counter + action.payload.val;
+      newState.counter = state.counter + action.payload;
       return newState;
   }
   return state;

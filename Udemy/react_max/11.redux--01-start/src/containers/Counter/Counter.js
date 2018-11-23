@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; //HOC used on export
-import * as actionTypes from '../../store/actions';
+import * as actionCreators from '../../store/actions/actions';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
 
-const { INCREMENT, ADD, DECREMENT, SUBTRACT, STORE_RESULT, ON_DELETE_RESULT} = actionTypes;
+const { increment, add, decrement, subtract, storeResult, onDeleteResult} = actionCreators;
 class Counter extends Component {
 
     render () {
@@ -39,12 +39,12 @@ const mapStateToProps =  state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIncrementCounter: () => dispatch({type: INCREMENT}), // dispatch action call using this.props
-    onDecrementCounter: () => dispatch({type: DECREMENT}),
-    onAddCounter: () => dispatch({type: ADD, payload: { val : 10}}),
-    onSubtractCounter: () => dispatch({type: SUBTRACT, payload: { val : 15}}),
-    onStoreResult: (result) => dispatch({type: STORE_RESULT, payload: {result: result}}),
-    onDeleteResult: (id) => dispatch({type: ON_DELETE_RESULT, payload: { resultEleId: id }})
+    onIncrementCounter: () => dispatch(increment()), // dispatch action call using this.props
+    onDecrementCounter: () => dispatch(decrement()),
+    onAddCounter: () => dispatch(add(10)),
+    onSubtractCounter: () => dispatch(subtract(15)),
+    onStoreResult: (result) => dispatch(storeResult(result)),
+    onDeleteResult: (id) => dispatch(onDeleteResult(id))
   };
 } // which actions do i want to dispatch in this container stores a func which recieves the dispacth func as an arg return JS Obj which has prop names hold ref to func which gets executed
 

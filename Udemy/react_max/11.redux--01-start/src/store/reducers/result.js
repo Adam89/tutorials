@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions'; // import everything from actions and store inside object
+import * as actionTypes from '../actions/actions'; // import everything from actions and store inside object
 
 const initialState = {
   results: []

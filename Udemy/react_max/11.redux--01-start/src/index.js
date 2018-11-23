@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'; // injects store into react components
 
 import './index.css';
@@ -25,14 +26,13 @@ const logger = store => { // this is a middleware
   } // function to let action continue journey onto reducer
 };
 
-const debug = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(logger),
-    debug
-  )
+  composeEnhancers(
+    applyMiddleware(logger, thunk)
+    )
   ); // react-redux connects store to react application
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
