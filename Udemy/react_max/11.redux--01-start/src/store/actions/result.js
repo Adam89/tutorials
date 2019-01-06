@@ -11,7 +11,7 @@ export const saveResult = (result) => {
 export const storeResult = (result) => { // CREATES THE ACTION 
   return (dispatch, getState) => { // get state is a util method which allows us to getState if we need to use state within logic related to async action
       setTimeout(() => {
-        const oldCounter = getState().ctr.counter;
+        const oldCounter = getState().ctr.counter; // don't overuse util funcs
         console.log(oldCounter, 'OldCounter');
         dispatch(saveResult(result))
       }, 2000);
