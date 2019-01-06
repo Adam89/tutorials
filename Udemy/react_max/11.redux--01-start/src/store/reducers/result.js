@@ -1,4 +1,5 @@
-import * as actionTypes from '../actions/actions'; // import everything from actions and store inside object
+import * as actionTypes from '../actions/actionsTypes'; // import everything from actions and store inside object
+import { updateObject } from '../utility';
 
 const initialState = {
   results: []
@@ -7,17 +8,12 @@ const initialState = {
 const {STORE_RESULT, ON_DELETE_RESULT} = actionTypes;
 
 const resultReducer = (state = initialState, action) => {
-  console.log(state, "state");
-  const newState = { ...state };
   switch (action.type) {
     case STORE_RESULT:
-      newState.results = state.results.concat({id: new Date(), value: action.payload.result});
-      console.log(newState, "Newstate2");
-      return newState;
+      return updateObject(state, {results:state.results.concat({id: new Date(), value: action.payload})});
     case ON_DELETE_RESULT:
-      newState.results = state.results.filter(result => result.id !== action.payload.resultEleId);
-      console.log(newState, "Newstate");
-      return newState;
+      const updatedArray = state.results.filter(result => result.id !== action.payload);
+      return updateObject(state, {results:updatedArray});
   }
   return state;
 };
