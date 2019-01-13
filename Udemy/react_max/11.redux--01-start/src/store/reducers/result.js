@@ -5,6 +5,11 @@ const initialState = {
   results: []
 };
 
+const deleteResult = (state, action) => {
+  const updatedArray = state.results.filter(result => result.id !== action.payload);
+  return updateObject(state, {results:updatedArray});
+}
+
 const {STORE_RESULT, ON_DELETE_RESULT} = actionTypes;
 
 const resultReducer = (state = initialState, action) => {
@@ -12,8 +17,7 @@ const resultReducer = (state = initialState, action) => {
     case STORE_RESULT:
       return updateObject(state, {results:state.results.concat({id: new Date(), value: action.payload})});
     case ON_DELETE_RESULT:
-      const updatedArray = state.results.filter(result => result.id !== action.payload);
-      return updateObject(state, {results:updatedArray});
+      return deleteResult(state, action)
   }
   return state;
 };
