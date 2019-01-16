@@ -31,7 +31,7 @@ const ingredientReducer = (state = initialState, action) => {
 				...state,
 				ingredients: {
 					...state.ingredients,
-					[action.payload.ingredientName]: state.ingredients[action.ingredientName] - 1
+					[action.ingredientName]: state.ingredients[action.ingredientName] - 1
         },
         totalPrice: state.totalPrice - ingredientPrices[action.ingredientName]
       };
@@ -42,10 +42,10 @@ const ingredientReducer = (state = initialState, action) => {
         error: false
       };
     case FETCH_INGREDIENTS_FAILED:
-    return {
-      ...state,
-      error: true
-    };
+      return {
+        ...state,
+        error: true
+      };
 		default:
 			return state
 	}

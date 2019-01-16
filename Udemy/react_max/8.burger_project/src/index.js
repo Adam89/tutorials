@@ -8,9 +8,11 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import ingredientReducer from "./store/reducers/ingredient";
+import orderReducer from './store/reducers/order';
 
 const rootReducer = combineReducers({
-  ingredients: ingredientReducer
+  ingredients: ingredientReducer,
+  order: orderReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

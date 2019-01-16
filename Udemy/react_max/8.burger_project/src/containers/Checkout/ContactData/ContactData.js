@@ -8,7 +8,7 @@ import classes from './ContactData.css';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 
-const { purchaseBurgerStart } = actions;
+const { purchaseBurger } = actions;
 class ContactData extends Component {
 
   state = {
@@ -79,7 +79,7 @@ class ContactData extends Component {
             { value: 'cheapest', displayValue: 'Cheapest' }
           ]
         },
-        value: '',
+        value: 'Fastest',
         validation: {},
         valid: true
       },
@@ -99,7 +99,6 @@ class ContactData extends Component {
       },
     },
     formIsValid: false,
-    loading: false
   }
 
   orderHandler = (event) => {
@@ -194,12 +193,15 @@ class ContactData extends Component {
 const mapStateToProps = state => {
   return {
     ings: state.ingredients.ingredients,
-    price: state.ingredients.totalPrice
+    price: state.ingredients.totalPrice,
+    loading: state.order.loading
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  onOrderBurger: (orderData) => dispatch(purchaseBurgerStart(orderData))
+  return {
+    onOrderBurger: (orderData) => dispatch(purchaseBurger(orderData))
+  }
 }
 
-export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
