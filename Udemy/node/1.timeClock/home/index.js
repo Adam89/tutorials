@@ -11,7 +11,7 @@ exports.register = (server) => {
     }
 });
 
-  server.route({
+  server.route({ // explicitly server index
     method: 'GET',
     path: '/',
     handler: {
