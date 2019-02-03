@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "glue": "^6.0.0",
     "hapi": "^18.0.0",
+    "inert": "^5.1.2",
     "joi": "^14.3.1"
   }
 }

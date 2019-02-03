@@ -1,53 +1,22 @@
-'use strict';
 
-const Hapi= require('hapi');
-const Joi = require('joi');
-// Create a server with a host and port
-const server=Hapi.server({
-    host:'localhost',
-    port:8000
-});
+const Glue = require('glue');
 
-// Add the route
-server.route({
-    method:'GET',
-    path:'/hello',
-    handler:function(request,h) {
-        return 'hello from time clock';
-    }
-});
+const manifest = require('./manifest.js');
 
-server.route({
-  method: 'POST',
-  path: '/shift',
-  config: {
-    validate: {
-      payload: {
-        start: Joi.date().required(),
-        end: Joi.date().required()
-      },
-      failAction: (request, h, error) => {
-        throw error;
-      }
-    }
-  },
-  handler: (request, h) => {
-    return request.payload;
-  }
-});
-
-// Start the server
-const start =  async function() {
-
-  try {
-      await server.start();
-  }
-  catch (err) {
-      console.log(err);
-      process.exit(1);
-  }
-
-  console.log('Server running at:', server.info.uri);
+const options = {
+    relativeTo: __dirname
 };
 
-start();
+const startServer = async function () {
+    try {
+        const server = await Glue.compose(manifest, options);
+        await server.start();
+        console.log(`Server started on port ${manifest.server.port}`);
+    }
+    catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
+};
+
+startServer();
