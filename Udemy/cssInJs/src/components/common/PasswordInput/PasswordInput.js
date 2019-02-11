@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
 // attrs object contain attributes
 const PasswordInput = styled.input.attrs({
