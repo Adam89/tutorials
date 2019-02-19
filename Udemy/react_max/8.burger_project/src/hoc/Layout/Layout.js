@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import Aux from '../Aux/Aux';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import classes from './Layout.css';
@@ -22,10 +23,12 @@ class Layout extends Component { //use layout component as wrapper around core c
 		return (
 			<Aux>
 				<Toolbar
-					drawToggleClicked={this.sideDrawToggleHandler} />  {/* holds three components Toolbar,SideDrawer, BackDrop */}
+          drawToggleClicked={this.sideDrawToggleHandler} 
+          isAuth={this.props.isAuthenticated}/>  {/* holds three components Toolbar,SideDrawer, BackDrop */}
 				<SideDrawer 
-				open={this.state.showSideDrawer}
-				closed={this.sideDrawClosedHandler} />
+          open={this.state.showSideDrawer}
+          closed={this.sideDrawClosedHandler}
+          isAuth={this.props.isAuthenticated} />
 				<main className={classes.Content}>
 					{this.props.children}
 				</main> {/* output component we wrap with this layout */}
@@ -34,8 +37,14 @@ class Layout extends Component { //use layout component as wrapper around core c
 	}
 }
 
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.authentication.token !== null
+  }
+}
 
-export default Layout;
+
+export default connect(mapStateToProps)(Layout);
 
 
 // Layout is a HOC as it's the wrapper for other components
