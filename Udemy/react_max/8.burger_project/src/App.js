@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom'
+import {Route, withRouter, Switch, Redirect} from 'react-router-dom'
 import { connect } from 'react-redux';
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
@@ -17,19 +17,40 @@ class App extends Component {
   }
 
   render() {
+    let routes = (
+      <Switch>
+        <Route path="/" exact component={BurgerBuilder}/>
+        <Route path="/auth" component={Auth}/>
+        <Redirect to="/"/>
+      </Switch>
+    );
+
+    if (this.props.isAuthenticated) {
+      routes = (
+        <Switch>
+          <Route path="/" exact component={BurgerBuilder}/>
+          <Route path="/orders" component={Orders} />
+          <Route path="/checkout" component={Checkout}/>
+          <Route path="/logout" component={Logout}/>
+          <Redirect to="/"/>
+        </Switch>
+      );
+    }
     return (
       <div className="App">
         <Layout>
-        <Route path="/" exact component={BurgerBuilder}/>
-        <Route path="/orders" component={Orders} />
-        <Route path="/checkout" component={Checkout}/>
-        <Route path="/auth" component={Auth}/>
-        <Route path="/logout" component={Logout}/>
+        {routes}
         </Layout>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.authentication.token !== null
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -37,7 +58,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 
 
 // everything loaded through route get route props children don't get them unless you pass them down
