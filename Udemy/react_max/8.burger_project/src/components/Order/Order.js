@@ -15,6 +15,7 @@ const order = (props) => {
     return <span className={classes.Ig}
     key={ig.name}>{ig.name} ({ig.amount})</span>
   });
+
   return (
     <div className={classes.Order}>
       <p>{ingredientOutput}</p>
