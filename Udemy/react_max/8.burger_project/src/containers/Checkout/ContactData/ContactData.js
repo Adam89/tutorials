@@ -7,6 +7,7 @@ import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import classes from './ContactData.css';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
+import { updateObject, checkValidity } from '../../../shared/utility';
 
 const { purchaseBurger } = actions;
 class ContactData extends Component {
@@ -114,9 +115,8 @@ class ContactData extends Component {
       orderData: formData,
       userId: this.props.userId
     }
-    console.log(order, 'order')
     this.props.onOrderBurger(order, this.props.token)
-   
+
   }
 
   checkValidity(value, rules) {
@@ -136,14 +136,14 @@ class ContactData extends Component {
 
 
   inputChangeHandler = (event, inputIdentifier) => { // two way binding
-    const updatedOrderForm = {
-      ...this.state.orderForm
-    }
-    const updatedFormElement = { ...updatedOrderForm[inputIdentifier] }; // creates deep clone of new form
-    updatedFormElement.value = event.target.value;
-    updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation) // pass value to checkvalidaty and return true false
-    updatedFormElement.touched = true
-    updatedOrderForm[inputIdentifier] = updatedFormElement; // updates specfic nested obj
+    const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+      value: event.target.value,
+      valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation), // pass value to checkvalidaty and return true false
+      touched: true
+    }); // creates deep clone of new form
+    const updatedOrderForm = updateObject(this.state.orderForm,{
+      [inputIdentifier]: updatedFormElement // updates specfic nested obj
+    })
     let formIsValid = true;
     for (let inputIdentifier in updatedOrderForm) {
       formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
