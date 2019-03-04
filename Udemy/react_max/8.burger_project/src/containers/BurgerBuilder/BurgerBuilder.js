@@ -13,7 +13,7 @@ import axios from "../../axios-orders";
 const { addIngredient, removeIngredient, initIngredients, purchaseInit, setAuthRedirectPath } = actionTypes;
 
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   state = {
     purchasing: false,
   };
