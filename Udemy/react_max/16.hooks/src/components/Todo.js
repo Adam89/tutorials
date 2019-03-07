@@ -3,27 +3,41 @@ import axios from 'axios';
 
 const todo = props => {
 
-  const [todoName, setTodoName] = useState(''); 
+  const [todoName, setTodoName] = useState('');
+  const [submittedTodo, setSubmittedTodo] = useState(null)
   const [toDoList, setTodoList] = useState([]);
+  console.log(toDoList)
   // const [toDoState, setTodoState] = useState({
   //   userInput: '',
   //   todoList: []
   // });
   useEffect(() => { // func executed on load for the first time hooks into reacts internals and makes sure code executes after render cycle for high performance and ui is updated correctly
     axios
-    .get('https://hooks-1542a.firebaseio.com/todos.json')
-    .then((result) => {
-      console.log(result, 'result');
-      const todoData = result.data;
-      const todos = [];
-      for (const key in todoData) {
-        todos.push({id:key, name:todoData[key].name})
-      }
-      setTodoList(todos);
-    });
+      .get('https://hooks-1542a.firebaseio.com/todos.json')
+      .then((result) => {
+        console.log(result, 'result');
+        const todoData = result.data;
+        const todos = [];
+        for (const key in todoData) {
+          todos.push({ id: key, name: todoData[key].name })
+        }
+        setTodoList(todos);
+      });
+    return () => {
+      //execute this as clean up on every render cycle before executing use effect
+      console.log('cleanup');
+    }
   }, [])
+
+  useEffect(() => {
+    if (submittedTodo){
+      setTodoList(toDoList.concat(submittedTodo));
+    }
+  }, [submittedTodo]);
+
+
   const inputChangeHandler = (event) => {
-      setTodoName(event.target.value)
+    setTodoName(event.target.value)
     //   setTodoState({
     //     userInput: event.target.value,
     //     todoList: toDoState.todoList
@@ -31,35 +45,37 @@ const todo = props => {
   };
 
   const toDoAddHandler = () => {
-    setTodoList(toDoList.concat(todoName));
+    // setTodoList(toDoList.concat(todoName));
     // setTodoState({
     //   userInput: toDoState.userInput,
     //   todoList: toDoState.todoList.concat(toDoState.userInput)
     // })
     axios
-    .post('https://hooks-1542a.firebaseio.com/todos.json', {name: todoName})
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      .post('https://hooks-1542a.firebaseio.com/todos.json', { name: todoName })
+      .then((response) => {
+        console.log(response);
+        const toDoItem = { id: response.data.name, name: todoName };
+        setSubmittedTodo(toDoItem)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   return (
     <React.Fragment>
-      <input  
-        type="text" 
-        placeholder="Todo" 
+      <input
+        type="text"
+        placeholder="Todo"
         onChange={inputChangeHandler}
         value={todoName}
-        // value={toDoState.userInput}
-        />
-      <button 
+      // value={toDoState.userInput}
+      />
+      <button
         type="button"
         onClick={toDoAddHandler}>ADD</button>
       <ul>
-       {/*
+        {/*
           {toDoState.todoList.map(todo => (
           <li key={todo}>{todo}</li>
         ))}
@@ -68,7 +84,7 @@ const todo = props => {
         {toDoList.map(todo => (
           <li key={todo}>{todo}</li>
         ))*/}
-        {toDoList.map(todo => (
+        {toDoList.map((todo) => (
           <li key={todo.id}>{todo.name}</li>
         ))}
       </ul>
