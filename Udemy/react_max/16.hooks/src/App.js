@@ -15,6 +15,7 @@ const app = props => {
   const login = () => {
     setAuthStatus(true)
   }
+  
   return (
     <div className="App">
       <AuthContext.Provider value={{status:authStatus, login: login}}>

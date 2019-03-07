@@ -4,7 +4,7 @@ import axios from 'axios';
 const todo = props => {
 
   const [todoName, setTodoName] = useState('');
-  const [submittedTodo, setSubmittedTodo] = useState(null)
+  const [submittedTodo, setSubmittedTodo] = useState(null);
   const [toDoList, setTodoList] = useState([]);
   console.log(toDoList)
   // const [toDoState, setTodoState] = useState({
