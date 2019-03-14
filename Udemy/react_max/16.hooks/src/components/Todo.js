@@ -1,16 +1,28 @@
-import React, { useState, useEffect } from 'react'; // use state is a func takes inital state returns array with two ele cur state second ele is function to manipulate state
+import React, { useEffect, useReducer, useRef } from 'react'; // use state is a func takes inital state returns array with two ele cur state second ele is function to manipulate state
 import axios from 'axios';
 
 const todo = props => {
 
-  const [todoName, setTodoName] = useState('');
-  const [submittedTodo, setSubmittedTodo] = useState(null);
-  const [toDoList, setTodoList] = useState([]);
-  console.log(toDoList)
-  // const [toDoState, setTodoState] = useState({
-  //   userInput: '',
-  //   todoList: []
-  // });
+  // const [todoName, setTodoName] = useState('');
+  const todoInputRef = useRef('');
+  console.log(todoInputRef, 'todoInputRef')
+  // const [submittedTodo, setSubmittedTodo] = useState(null);
+  
+  // const [toDoList, setTodoList] = useState([]);
+
+  const todoListReducer = (state, action) => {
+    switch (action.type) {
+      case 'ADD':
+        return state.concat(action.payload)
+      case 'SET':
+        return action.payload
+      case 'REMOVE':
+        return state.filter((todo) => todo.id !== action.payload)
+      default:
+        break;
+    }
+  }
+  const [toDoList, dispatch] = useReducer(todoListReducer, [])
   useEffect(() => { // func executed on load for the first time hooks into reacts internals and makes sure code executes after render cycle for high performance and ui is updated correctly
     axios
       .get('https://hooks-1542a.firebaseio.com/todos.json')
@@ -21,7 +33,7 @@ const todo = props => {
         for (const key in todoData) {
           todos.push({ id: key, name: todoData[key].name })
         }
-        setTodoList(todos);
+        dispatch({type:'SET', payload: todos});
       });
     return () => {
       //execute this as clean up on every render cycle before executing use effect
@@ -29,68 +41,66 @@ const todo = props => {
     }
   }, [])
 
-  useEffect(() => {
-    if (submittedTodo){
-      setTodoList(toDoList.concat(submittedTodo));
-    }
-  }, [submittedTodo]);
+  // useEffect(() => {
+  //   if (submittedTodo){
+  //     dispatch({type: 'ADD', payload:submittedTodo});
+  //   }
+  // }, [submittedTodo]);
 
 
-  const inputChangeHandler = (event) => {
-    setTodoName(event.target.value)
-    //   setTodoState({
-    //     userInput: event.target.value,
-    //     todoList: toDoState.todoList
-    // })
-  };
+  // const inputChangeHandler = (event) => {
+  //   setTodoName(event.target.value)
+  // };
+
+  const todoName = todoInputRef.current.value;
+  console.log(todoName)
+
+
+
 
   const toDoAddHandler = () => {
-    // setTodoList(toDoList.concat(todoName));
-    // setTodoState({
-    //   userInput: toDoState.userInput,
-    //   todoList: toDoState.todoList.concat(toDoState.userInput)
-    // })
     axios
       .post('https://hooks-1542a.firebaseio.com/todos.json', { name: todoName })
       .then((response) => {
         console.log(response);
         const toDoItem = { id: response.data.name, name: todoName };
-        setSubmittedTodo(toDoItem)
+        dispatch({type: 'ADD', payload:toDoItem});
       })
       .catch((err) => {
         console.log(err);
       })
   };
 
+  const toDoRemoveHandler = toDoId => {
+    axios.delete(`https://hooks-1542a.firebaseio.com/todos/${toDoId}.json`)
+    .then(res => {
+      dispatch({type: 'REMOVE', payload: toDoId})
+    })
+    .catch(err => {
+      console.log(err, 'err')
+    })
+  }
+
   return (
     <React.Fragment>
       <input
         type="text"
         placeholder="Todo"
-        onChange={inputChangeHandler}
-        value={todoName}
-      // value={toDoState.userInput}
+        ref={todoInputRef}
       />
       <button
         type="button"
         onClick={toDoAddHandler}>ADD</button>
       <ul>
-        {/*
-          {toDoState.todoList.map(todo => (
-          <li key={todo}>{todo}</li>
-        ))}
-        }
-        
-        {toDoList.map(todo => (
-          <li key={todo}>{todo}</li>
-        ))*/}
         {toDoList.map((todo) => (
-          <li key={todo.id}>{todo.name}</li>
+          <li key={todo.id}
+              onClick={toDoRemoveHandler.bind(this, todo.id)}>{todo.name}</li>
         ))}
       </ul>
     </React.Fragment>
   )
 };
+
 
 export default todo;
 
