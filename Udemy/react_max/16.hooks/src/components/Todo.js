@@ -1,13 +1,15 @@
-import React, { useEffect, useReducer, useRef } from 'react'; // use state is a func takes inital state returns array with two ele cur state second ele is function to manipulate state
+import React, { useEffect, useReducer, useRef, useState, useMemo } from 'react'; // use state is a func takes inital state returns array with two ele cur state second ele is function to manipulate state
 import axios from 'axios';
+import List from './List';
+import {useFormInput} from "../hooks/Form";
 
 const todo = props => {
 
   // const [todoName, setTodoName] = useState('');
   const todoInputRef = useRef('');
-  console.log(todoInputRef, 'todoInputRef')
+  const toDoInput = useFormInput()
   // const [submittedTodo, setSubmittedTodo] = useState(null);
-  
+  const [inputIsValid, setInputIsValid] = useState(false)
   // const [toDoList, setTodoList] = useState([]);
 
   const todoListReducer = (state, action) => {
@@ -81,22 +83,28 @@ const todo = props => {
     })
   }
 
+  const inputValidationHandler = (event) => {
+    if (event.target.value.trim() === '') {
+      setInputIsValid(false)
+    } else {
+      setInputIsValid(true)
+    }
+  }
+
   return (
     <React.Fragment>
       <input
         type="text"
         placeholder="Todo"
-        ref={todoInputRef}
+        onChange={toDoInput.onChange}
+        value={toDoInput.value}
+        style={{backgroundColor: toDoInput.validity ? 'transparent' : 'red'}}
       />
       <button
         type="button"
-        onClick={toDoAddHandler}>ADD</button>
-      <ul>
-        {toDoList.map((todo) => (
-          <li key={todo.id}
-              onClick={toDoRemoveHandler.bind(this, todo.id)}>{todo.name}</li>
-        ))}
-      </ul>
+        onClick={toDoAddHandler}>ADD
+      </button>
+      {useMemo(() => <List items={toDoList} onClick={toDoRemoveHandler} />, [toDoList])}
     </React.Fragment>
   )
 };
