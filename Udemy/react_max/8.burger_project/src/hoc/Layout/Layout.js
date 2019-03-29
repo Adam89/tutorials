@@ -17,7 +17,6 @@ const layout = (props) => { //use layout component as wrapper around core conten
 		setDraw(!sideDrawVisible)
 	}
 
-
 		return (
 			<Aux>
 				<Toolbar
