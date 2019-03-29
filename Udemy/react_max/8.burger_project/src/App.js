@@ -1,23 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import {Route, withRouter, Switch, Redirect} from 'react-router-dom'
 import { connect } from 'react-redux';
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Logout from './containers/Auth/Logout/Logout';
-import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import * as actions from './store/actions/index';
 
 const {authCheckState} = actions;
 
-const asyncCheckout = asyncComponent(() => {
+const Checkout = React.lazy(() => {
   return import('./containers/Checkout/Checkout');
 })
 
-const asyncOrders = asyncComponent(() => {
+const Orders = React.lazy(() => {
   return import('./containers/Orders/Orders');
 })
 
-const asyncAuth = asyncComponent(() => {
+const Auth = React.lazy(() => {
   return import('./containers/Auth/Auth');
 })
 
@@ -31,7 +30,7 @@ const app = (props) =>  {
     let routes = (
       <Switch>
         <Route path="/" exact component={BurgerBuilder}/>
-        <Route path="/auth" component={asyncAuth}/>
+        <Route path="/auth" component={() => <Auth/>}/>
         <Redirect to="/"/>
       </Switch>
     );
@@ -40,9 +39,9 @@ const app = (props) =>  {
       routes = (
         <Switch>
           <Route path="/" exact component={BurgerBuilder}/>
-          <Route path="/auth" component={asyncAuth}/>
-          <Route path="/orders" component={asyncOrders} />
-          <Route path="/checkout" component={asyncCheckout}/>
+          <Route path="/auth" render={() => <Auth/>}/>
+          <Route path="/orders" component={() => <Orders/>} />
+          <Route path="/checkout" component={() => <Checkout/>}/>
           <Route path="/logout" component={Logout}/>
           <Redirect to="/"/>
         </Switch>
@@ -51,7 +50,7 @@ const app = (props) =>  {
     return (
       <div className="App">
         <Layout>
-        {routes}
+        <Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
         </Layout>
       </div>
     );
