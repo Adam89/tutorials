@@ -1,16 +1,12 @@
-import React, { useEffect, useReducer, useRef, useState, useMemo } from 'react'; // use state is a func takes inital state returns array with two ele cur state second ele is function to manipulate state
+import React, { useEffect, useReducer, useMemo } from 'react'; // use state is a func takes inital state returns array with two ele cur state second ele is function to manipulate state
 import axios from 'axios';
 import List from './List';
 import {useFormInput} from "../hooks/Form";
 
 const todo = props => {
 
-  // const [todoName, setTodoName] = useState('');
-  const todoInputRef = useRef('');
   const toDoInput = useFormInput()
-  // const [submittedTodo, setSubmittedTodo] = useState(null);
-  const [inputIsValid, setInputIsValid] = useState(false)
-  // const [toDoList, setTodoList] = useState([]);
+  
 
   const todoListReducer = (state, action) => {
     switch (action.type) {
@@ -24,12 +20,15 @@ const todo = props => {
         break;
     }
   }
+
   const [toDoList, dispatch] = useReducer(todoListReducer, [])
-  useEffect(() => { // func executed on load for the first time hooks into reacts internals and makes sure code executes after render cycle for high performance and ui is updated correctly
+
+
+  // func executed on load for the first time hooks into reacts internals and makes sure code executes after render cycle for high performance and to ensure ui is updated correctly
+  useEffect(() => { // pass new func every render allows you to read scoped state variables without getting stale
     axios
       .get('https://hooks-1542a.firebaseio.com/todos.json')
       .then((result) => {
-        console.log(result, 'result');
         const todoData = result.data;
         const todos = [];
         for (const key in todoData) {
@@ -37,34 +36,18 @@ const todo = props => {
         }
         dispatch({type:'SET', payload: todos});
       });
-    return () => {
+      return () => { //componentWillUnmount cleanup happens after every re render componentDidUpdate cleans up previous effects before applying next effect
       //execute this as clean up on every render cycle before executing use effect
       console.log('cleanup');
     }
-  }, [])
+  }, []) //empty array run an effect and clean it up only once (on mount and unmount) or  skip applying the effect if certain data doesn't change. 
 
-  // useEffect(() => {
-  //   if (submittedTodo){
-  //     dispatch({type: 'ADD', payload:submittedTodo});
-  //   }
-  // }, [submittedTodo]);
-
-
-  // const inputChangeHandler = (event) => {
-  //   setTodoName(event.target.value)
-  // };
-
-  const todoName = todoInputRef.current.value;
-  console.log(todoName)
-
-
-
+  const todoName = toDoInput.value
 
   const toDoAddHandler = () => {
     axios
       .post('https://hooks-1542a.firebaseio.com/todos.json', { name: todoName })
       .then((response) => {
-        console.log(response);
         const toDoItem = { id: response.data.name, name: todoName };
         dispatch({type: 'ADD', payload:toDoItem});
       })
@@ -81,14 +64,6 @@ const todo = props => {
     .catch(err => {
       console.log(err, 'err')
     })
-  }
-
-  const inputValidationHandler = (event) => {
-    if (event.target.value.trim() === '') {
-      setInputIsValid(false)
-    } else {
-      setInputIsValid(true)
-    }
   }
 
   return (
