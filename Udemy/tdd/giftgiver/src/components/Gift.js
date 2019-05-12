@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 
 class Gift extends Component {
   constructor() {
@@ -7,7 +7,10 @@ class Gift extends Component {
 
     this.state = {person: '', present: ''}
   }
+
+
   render() {
+    const { removeGift, gift: { id } } = this.props
     return(
       <div>
         <Form>
@@ -24,6 +27,11 @@ class Gift extends Component {
               onChange={event => this.setState({ present: event.target.value })}/>
           </Form.Group>
         </Form>
+        <Button 
+          className='btn-remove'
+          onClick={() => removeGift(id)}>
+          Remove Gift
+          </Button>
       </div>
     )
   }
