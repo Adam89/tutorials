@@ -28,5 +28,11 @@
     "jest-cli": "^24.5.0",
     "react-dom": "^16.8.4",
     "react-test-renderer": "^16.8.4"
+  },
+  "jest":{
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js"
+    ]
   }
 }
