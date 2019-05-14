@@ -27,7 +27,7 @@ describe('@Wallet', () => {
     beforeEach(() => {
       wallet.find('.input-wallet').simulate('change', { target: { value: userBalance }})
     });
-    
+
     it('updates local wallet balance in `state` and converts it to a number', () => {
       expect(wallet.state().balance).toEqual(parseInt(userBalance, 10))
     });
